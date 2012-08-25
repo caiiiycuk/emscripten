@@ -321,7 +321,7 @@ var LibrarySDL = {
 
     // Copy data from the C++-accessible storage to the canvas backing 
     // for surface with HWPALETTE flag(8bpp depth)
-    copyIndexedColorData: function(surfData, rX, rY, rW, rH) {
+    copyIndexedColorData: function(surfData, rectX, rectY, rectW, rectH) {
       // HWPALETTE works with palette
       // setted by SDL_SetColors
       if (!surfData.colors) {
@@ -331,10 +331,10 @@ var LibrarySDL = {
       var fullWidth  = Module['canvas'].width;
       var fullHeight = Module['canvas'].height;
 
-      var startX  = rX || 0;
-      var startY  = rY || 0;
-      var endX    = (rW || (fullWidth - startX)) + startX;
-      var endY    = (rH || (fullHeight - startY)) + startY;
+      var startX  = rectX || 0;
+      var startY  = rectY || 0;
+      var endX    = (rectW || (fullWidth - startX)) + startX;
+      var endY    = (rectH || (fullHeight - startY)) + startY;
       
       var buffer  = surfData.buffer;
       var data    = surfData.image.data;
@@ -747,6 +747,8 @@ var LibrarySDL = {
     surfData.locked++;
     if (surfData.locked > 1) return 0;
 
+    if (surfData.image) return 0;
+
     surfData.image = surfData.ctx.getImageData(0, 0, surfData.width, surfData.height);
     if (surf == SDL.screen) {
       var data = surfData.image.data;
@@ -809,7 +811,7 @@ var LibrarySDL = {
 
     // Copy pixel data to image
     if (surfData.isFlagSet(0x00200000 /* SDL_HWPALETTE */)) {
-      SDL.copyIndexedColorData(surfData);
+    //  SDL.copyIndexedColorData(surfData);
     } else if (!surfData.colors) {
       var num = surfData.image.data.length;
       var data = surfData.image.data;
@@ -867,11 +869,23 @@ var LibrarySDL = {
   },
 
   SDL_UpdateRect: function(surf, x, y, w, h) {
-    // We actually do the whole screen in Unlock...
+    var surfData = SDL.surfaces[surf];
+
+    if (w == 0 || h == 0) {
+      SDL.copyIndexedColorData(surfData);  
+    } else {
+      SDL.copyIndexedColorData(surfData, x, y, w, h);  
+    }
   },
 
   SDL_UpdateRects: function(surf, numrects, rects) {
-    // We actually do the whole screen in Unlock...
+    var surfData = SDL.surfaces[surf];
+
+    for (var i = 0; i < numrects; ++i) {
+      var rect = SDL.loadRect(rects);
+      SDL.copyIndexedColorData(surfData, rect.x, rect.y, rect.w, rect.h);
+      rects += 16;
+    }
   },
 
   SDL_Delay: function(delay) {
@@ -910,7 +924,7 @@ var LibrarySDL = {
   },
 
   SDL_WarpMouse: function(x, y) {
-    return; // TODO: implement this in a non-buggy way. Need to keep relative mouse movements correct after calling this
+    //return; // TODO: implement this in a non-buggy way. Need to keep relative mouse movements correct after calling this
     SDL.events.push({
       type: 'mousemove',
       pageX: x + Module['canvas'].offsetLeft,

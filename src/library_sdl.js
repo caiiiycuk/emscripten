@@ -844,7 +844,13 @@ var LibrarySDL = {
   },
 
   SDL_UpdateRect: function(surf, x, y, w, h) {
-    // We actually do the whole screen in Unlock...
+    var surfData = SDL.surfaces[surf];
+
+    if (w == 0 || h == 0) {
+      SDL.copyIndexedColorData(surfData);  
+    } else {
+      SDL.copyIndexedColorData(surfData, x, y, w, h);  
+    }
   },
 
   SDL_UpdateRects: function(surf, numrects, rects) {
@@ -855,9 +861,6 @@ var LibrarySDL = {
       SDL.copyIndexedColorData(surfData, rect.x, rect.y, rect.w, rect.h);
       rects += 16;
     }
-
-    
-    // surfData.dirtyRects = jsRects;
   },
 
   SDL_Delay: function(delay) {

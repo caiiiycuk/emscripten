@@ -724,6 +724,8 @@ var LibrarySDL = {
     surfData.locked++;
     if (surfData.locked > 1) return 0;
 
+    if (surfData.image) return 0;
+
     surfData.image = surfData.ctx.getImageData(0, 0, surfData.width, surfData.height);
     if (surf == SDL.screen) {
       var data = surfData.image.data;

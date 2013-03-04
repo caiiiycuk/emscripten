@@ -65,6 +65,7 @@ int main(int argc, char** argv) {
   }
 
   //refreshing
+  SDL_UpdateRect(screen, 0, 0, 0, 0);
   SDL_LockSurface(screen);
   SDL_UnlockSurface(screen);
 

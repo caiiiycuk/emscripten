@@ -18,6 +18,10 @@ var LibrarySDL = {
       copyOnLock: true
     },
 
+    vShader: "attribute vec2 a_position; attribute vec3 a_color; varying vec3 v_color; void main() { gl_Position = vec4(a_position, 0, 1); v_color = a_color; }",
+
+    pShader: "precision highp float; varying vec3 v_color; void main(void) { gl_FragColor = vec4(v_color.x/256.0, v_color.y/256.0, v_color.z/256.0, 1); }",
+
     version: null,
 
     surfaces: {},
@@ -36,7 +40,7 @@ var LibrarySDL = {
     mixerNumChannels: 2,
     mixerChunkSize: 1024,
 
-    GL: false, // Set to true if we call SDL_SetVideoMode with SDL_OPENGL, and if so, we do not create 2D canvases&contexts for blitting
+    GL: true, // Set to true if we call SDL_SetVideoMode with SDL_OPENGL, and if so, we do not create 2D canvases&contexts for blitting
                // Note that images loaded before SDL_SetVideoMode will not get this optimization
 
     keyboardState: null,
@@ -255,6 +259,76 @@ var LibrarySDL = {
       return (r << 24) + (g << 16) + (b << 8) + a;
     },
 
+    /**
+     * Loads a shader.
+     * @param {!WebGLContext} gl The WebGLContext to use.
+     * @param {string} shaderSource The shader source.
+     * @param {number} shaderType The type of shader.
+     * @param {function(string): void) opt_errorCallback callback for errors.
+     * @return {!WebGLShader} The created shader.
+     */
+    loadShader: function(gl, shaderSource, shaderType, opt_errorCallback) {
+      var errFn = opt_errorCallback || function(msg) { alert(msg); };
+      // Create the shader object
+      var shader = gl.createShader(shaderType);
+
+      // Load the shader source
+      gl.shaderSource(shader, shaderSource);
+
+      // Compile the shader
+      gl.compileShader(shader);
+
+      // Check the compile status
+      var compiled = gl.getShaderParameter(shader, gl.COMPILE_STATUS);
+      if (!compiled) {
+        // Something went wrong during compilation; get the error
+        lastError = gl.getShaderInfoLog(shader);
+        errFn("*** Error compiling shader '" + shader + "':" + lastError);
+        gl.deleteShader(shader);
+        return null;
+      }
+
+      return shader;
+    },
+
+    /**
+     * Creates a program, attaches shaders, binds attrib locations, links the
+     * program and calls useProgram.
+     * @param {!Array.<!WebGLShader>} shaders The shaders to attach
+     * @param {!Array.<string>} opt_attribs The attribs names.
+     * @param {!Array.<number>} opt_locations The locations for the attribs.
+     * @param {function(string): void) opt_errorCallback callback for errors.
+     */
+    loadProgram: function(
+        gl, shaders, opt_attribs, opt_locations, opt_errorCallback) {
+      var errFn = opt_errorCallback || function(msg) { alert(msg); };
+      var program = gl.createProgram();
+      for (var ii = 0; ii < shaders.length; ++ii) {
+        gl.attachShader(program, shaders[ii]);
+      }
+      if (opt_attribs) {
+        for (var ii = 0; ii < opt_attribs.length; ++ii) {
+          gl.bindAttribLocation(
+              program,
+              opt_locations ? opt_locations[ii] : ii,
+              opt_attribs[ii]);
+        }
+      }
+      gl.linkProgram(program);
+
+      // Check the link status
+      var linked = gl.getProgramParameter(program, gl.LINK_STATUS);
+      if (!linked) {
+          // something went wrong with the link
+          lastError = gl.getProgramInfoLog (program);
+          errFn("Error in program linking:" + lastError);
+
+          gl.deleteProgram(program);
+          return null;
+      }
+      return program;
+    },
+
     makeSurface: function(width, height, flags, usePageCanvas, source, rmask, gmask, bmask, amask) {
       flags = flags || 0;
       var surf = _malloc(14*Runtime.QUANTUM_SIZE);  // SDL_Surface has 14 fields of quantum size
@@ -286,7 +360,7 @@ var LibrarySDL = {
       {{{ makeSetValue('pixelFormat + SDL.structs.PixelFormat.Amask', '0', 'amask || 0xff000000', 'i32') }}}
 
       // Decide if we want to use WebGL or not
-      var useWebGL = (flags & 0x04000000) != 0; // SDL_OPENGL
+      var useWebGL = true;
       SDL.GL = SDL.GL || useWebGL;
       var canvas;
       if (!usePageCanvas) {
@@ -297,9 +371,11 @@ var LibrarySDL = {
         canvas = Module['canvas'];
       }
       var ctx = Browser.createContext(canvas, useWebGL, usePageCanvas);
+      
       SDL.surfaces[surf] = {
         width: width,
         height: height,
+        points: width*height,
         canvas: canvas,
         ctx: ctx,
         surf: surf,
@@ -316,43 +392,124 @@ var LibrarySDL = {
         }
       };
 
+      var gl = ctx;
+
+      // setup a GLSL program
+      var vertexShader = SDL.loadShader(gl, SDL.vShader, gl.VERTEX_SHADER);
+      var fragmentShader = SDL.loadShader(gl, SDL.pShader, gl.FRAGMENT_SHADER);
+      var program = SDL.loadProgram(gl, [vertexShader, fragmentShader]);
+      gl.useProgram(program);
+
+      //
+      // Points
+      //
+
+      var positionLocation = gl.getAttribLocation(program, "a_position");
+
+      var points = new Float32Array(width*height*2);
+      var ptr = 0;
+      var halfWidth = width / 2;
+      var halfHeight = height / 2;
+      for (y = height - 1; y > -1; --y) {
+        for (x = 0; x < width; ++x) {
+          points[ptr] = x / halfWidth - 1;
+          ptr++;
+          points[ptr] = y / halfHeight - 1;
+          ptr++;
+        }
+      }
+
+      var pBuffer = gl.createBuffer();
+      gl.bindBuffer(gl.ARRAY_BUFFER, pBuffer);
+      gl.bufferData(
+        gl.ARRAY_BUFFER, 
+        points, 
+        gl.STATIC_DRAW);
+
+      gl.enableVertexAttribArray(positionLocation);
+
+      gl.bindBuffer(gl.ARRAY_BUFFER, pBuffer);
+      gl.vertexAttribPointer(positionLocation, 2, gl.FLOAT, false, 0, 0);
+
+      //
+      // Colors
+      //
+      var colorLocation = gl.getAttribLocation(program, "a_color");
+      var colors = new Uint8Array(width*height*3);
+
+      var cBuffer = gl.createBuffer();
+      gl.bindBuffer(gl.ARRAY_BUFFER, cBuffer);
+      gl.bufferData(
+        gl.ARRAY_BUFFER, 
+        colors, 
+        gl.STATIC_DRAW);
+      gl.enableVertexAttribArray(colorLocation);
+      gl.vertexAttribPointer(colorLocation, 3, gl.UNSIGNED_BYTE, false, 0, 0);
+
+      SDL.surfaces[surf].cBuffer = cBuffer;
+      SDL.surfaces[surf].surfColors = colors;
+
       return surf;
     },
 
-    // Copy data from the C++-accessible storage to the canvas backing 
-    // for surface with HWPALETTE flag(8bpp depth)
     copyIndexedColorData: function(surfData, rectX, rectY, rectW, rectH) {
-      // HWPALETTE works with palette
-      // setted by SDL_SetColors
       if (!surfData.colors) {
         return;
       }
-      
+
+      var gl = surfData.ctx;
+      gl.bindBuffer(gl.ARRAY_BUFFER, surfData.cBuffer);
+
       var fullWidth  = Module['canvas'].width;
       var fullHeight = Module['canvas'].height;
 
       var startX  = rectX || 0;
       var startY  = rectY || 0;
-      var endX    = (rectW || (fullWidth - startX)) + startX;
-      var endY    = (rectH || (fullHeight - startY)) + startY;
-      
+      var width   = rectW || (fullWidth - startX);
+      var height  = rectH || (fullHeight - startY);
+      var endX    = (width) + startX;
+      var endY    = (height) + startY;
+
+      var fullRepaint = startX == 0 && startY == 0 
+        && width == fullWidth && height == fullHeight && false;
+      var partialRepaint = !fullRepaint;
+
+     
       var buffer  = surfData.buffer;
-      var data    = surfData.image.data;
+      var data    = fullRepaint ? surfData.surfColors : new Uint8Array(width * 3);
       var colors  = surfData.colors;
 
+      var glColorIndex = 0;
       for (var y = startY; y < endY; ++y) {
         var indexBase = y * fullWidth;
-        var colorBase = indexBase * 4;
+
+        if (partialRepaint) {
+          glColorIndex = 0;
+        }
+
         for (var x = startX; x < endX; ++x) {
           // HWPALETTE have only 256 colors (not rgba)
           var index = {{{ makeGetValue('buffer + indexBase + x', '0', 'i8', null, true) }}} * 3;
-          var colorOffset = colorBase + x * 4;
 
-          data[colorOffset   ] = colors[index   ];
-          data[colorOffset +1] = colors[index +1];
-          data[colorOffset +2] = colors[index +2];
-          //unused: data[colorOffset +3] = color[index +3];
+          data[glColorIndex++] = colors[index++];
+          data[glColorIndex++] = colors[index++];
+          data[glColorIndex++] = colors[index++];
         }
+
+
+        if (partialRepaint) {
+          gl.bufferSubData(
+            gl.ARRAY_BUFFER, 
+            (indexBase + startX) * 3 * Uint8Array.BYTES_PER_ELEMENT, 
+            data);
+        }
+      }
+
+      if (fullRepaint) {
+          gl.bufferSubData(
+            gl.ARRAY_BUFFER, 
+            0, 
+            data);
       }
     },
 
@@ -742,125 +899,14 @@ var LibrarySDL = {
 
   // Copy data from the canvas backing to a C++-accessible storage
   SDL_LockSurface: function(surf) {
-    var surfData = SDL.surfaces[surf];
-
-    surfData.locked++;
-    if (surfData.locked > 1) return 0;
-
-    if (surfData.image) return 0;
-
-    surfData.image = surfData.ctx.getImageData(0, 0, surfData.width, surfData.height);
-    if (surf == SDL.screen) {
-      var data = surfData.image.data;
-      var num = data.length;
-      for (var i = 0; i < num/4; i++) {
-        data[i*4+3] = 255; // opacity, as canvases blend alpha
-      }
-    }
-
-    if (SDL.defaults.copyOnLock) {
-      // Copy pixel data to somewhere accessible to 'C/C++'
-      if (surfData.isFlagSet(0x00200000 /* SDL_HWPALETTE */)) {
-        // If this is neaded then
-        // we should compact the data from 32bpp to 8bpp index.
-        // I think best way to implement this is use
-        // additional colorMap hash (color->index).
-        // Something like this:
-        //
-        // var size = surfData.width * surfData.height;
-        // var data = '';
-        // for (var i = 0; i<size; i++) {
-        //   var color = SDL.translateRGBAToColor(
-        //     surfData.image.data[i*4   ], 
-        //     surfData.image.data[i*4 +1], 
-        //     surfData.image.data[i*4 +2], 
-        //     255);
-        //   var index = surfData.colorMap[color];
-        //   {{{ makeSetValue('surfData.buffer', 'i', 'index', 'i8') }}};
-        // }
-        throw 'CopyOnLock is not supported for SDL_LockSurface with SDL_HWPALETTE flag set' + new Error().stack;
-      } else {
-#if USE_TYPED_ARRAYS == 2
-      HEAPU8.set(surfData.image.data, surfData.buffer);
-#else
-      var num2 = surfData.image.data.length;
-      for (var i = 0; i < num2; i++) {
-        {{{ makeSetValue('surfData.buffer', 'i', 'surfData.image.data[i]', 'i8') }}};
-      }
-#endif
-      }
-    }
-
-    // Mark in C/C++-accessible SDL structure
-    // SDL_Surface has the following fields: Uint32 flags, SDL_PixelFormat *format; int w, h; Uint16 pitch; void *pixels; ...
-    // So we have fields all of the same size, and 5 of them before us.
-    // TODO: Use macros like in library.js
-    {{{ makeSetValue('surf', '5*Runtime.QUANTUM_SIZE', 'surfData.buffer', 'void*') }}};
-
-    return 0;
+    // Does not need for web-gl
   },
 
   // Copy data from the C++-accessible storage to the canvas backing
   SDL_UnlockSurface: function(surf) {
-    assert(!SDL.GL); // in GL mode we do not keep around 2D canvases and contexts
-
     var surfData = SDL.surfaces[surf];
-
-    surfData.locked--;
-    if (surfData.locked > 0) return;
-
-    // Copy pixel data to image
-    if (surfData.isFlagSet(0x00200000 /* SDL_HWPALETTE */)) {
-    //  SDL.copyIndexedColorData(surfData);
-    } else if (!surfData.colors) {
-      var num = surfData.image.data.length;
-      var data = surfData.image.data;
-      var buffer = surfData.buffer;
-#if USE_TYPED_ARRAYS == 2
-      assert(buffer % 4 == 0, 'Invalid buffer offset: ' + buffer);
-      var src = buffer >> 2;
-      var dst = 0;
-      var isScreen = surf == SDL.screen;
-      while (dst < num) {
-        // TODO: access underlying data buffer and write in 32-bit chunks or more
-        var val = HEAP32[src]; // This is optimized. Instead, we could do {{{ makeGetValue('buffer', 'dst', 'i32') }}};
-        data[dst  ] = val & 0xff;
-        data[dst+1] = (val >> 8) & 0xff;
-        data[dst+2] = (val >> 16) & 0xff;
-        data[dst+3] = isScreen ? 0xff : ((val >> 24) & 0xff);
-        src++;
-        dst += 4;
-      }
-#else
-      for (var i = 0; i < num; i++) {
-        // We may need to correct signs here. Potentially you can hardcode a write of 255 to alpha, say, and
-        // the compiler may decide to write -1 in the llvm bitcode...
-        data[i] = {{{ makeGetValue('buffer', 'i', 'i8', null, true) }}};
-        if (i % 4 == 3) data[i] = 0xff;
-      }
-#endif
-    } else {
-      var width = Module['canvas'].width;
-      var height = Module['canvas'].height;
-      var s = surfData.buffer;
-      var data = surfData.image.data;
-      var colors = surfData.colors;
-      for (var y = 0; y < height; y++) {
-        var base = y*width*4;
-        for (var x = 0; x < width; x++) {
-          // See comment above about signs
-          var val = {{{ makeGetValue('s++', '0', 'i8', null, true) }}} * 3;
-          var start = base + x*4;
-          data[start]   = colors[val];
-          data[start+1] = colors[val+1];
-          data[start+2] = colors[val+2];
-        }
-        s += width*3;
-      }
-    }
-    // Copy to canvas
-    surfData.ctx.putImageData(surfData.image, 0, 0);
-    // Note that we save the image, so future writes are fast. But, memory is not yet released
+    var gl = surfData.ctx;
+    gl.drawArrays(gl.POINTS, 0, surfData.points);
   },
 
   SDL_Flip: function(surf) {

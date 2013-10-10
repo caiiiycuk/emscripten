@@ -421,6 +421,10 @@ var LibrarySDL = {
     savedKeydown: null,
 
     receiveEvent: function(event) {
+      if (Module['disable_sdl_envents'] == true) {
+        return;
+      }
+
       switch(event.type) {
         case 'touchstart':
           event.preventDefault();
@@ -1153,7 +1157,7 @@ var LibrarySDL = {
 
     // Copy pixel data to image
     if (surfData.isFlagSet(0x00200000 /* SDL_HWPALETTE */)) {
-      SDL.copyIndexedColorData(surfData);
+    //  SDL.copyIndexedColorData(surfData);
     } else if (!surfData.colors) {
       var data = surfData.image.data;
       var buffer = surfData.buffer;
@@ -1231,11 +1235,23 @@ var LibrarySDL = {
   },
 
   SDL_UpdateRect: function(surf, x, y, w, h) {
-    // We actually do the whole screen in Unlock...
+    var surfData = SDL.surfaces[surf];
+
+    if (w == 0 || h == 0) {
+      SDL.copyIndexedColorData(surfData);  
+    } else {
+      SDL.copyIndexedColorData(surfData, x, y, w, h);  
+    }
   },
 
   SDL_UpdateRects: function(surf, numrects, rects) {
-    // We actually do the whole screen in Unlock...
+    var surfData = SDL.surfaces[surf];
+
+    for (var i = 0; i < numrects; ++i) {
+      var rect = SDL.loadRect(rects);
+      SDL.copyIndexedColorData(surfData, rect.x, rect.y, rect.w, rect.h);
+      rects += 16;
+    }
   },
 
   SDL_Delay: function(delay) {

@@ -279,8 +279,11 @@ var DISABLE_EXCEPTION_CATCHING = 0; // Disables generating code to actually catc
                                     // TODO: Make this also remove cxa_begin_catch etc., optimize relooper
                                     //       for it, etc. (perhaps do all of this as preprocessing on .ll?)
 
-var EXCEPTION_CATCHING_WHITELIST = [];  // Enables catching exception in the listed functions only, if
-                                        // DISABLE_EXCEPTION_CATCHING = 2 is set
+var EXCEPTION_CATCHING_WHITELIST = [
+  '__ZN14ScriptInstance8GameLoopEv',
+  '__ZN4SQVM10CallNativeEP15SQNativeClosureiiR11SQObjectPtrRb',
+  '__ZN4SQVM7ExecuteER11SQObjectPtriiiS1_jNS_13ExecutionTypeE'
+];
 
 var EXECUTION_TIMEOUT = -1; // Throw an exception after X seconds - useful to debug infinite loops
 var CHECK_OVERFLOWS = 0; // Add code that checks for overflows in integer math operations.
@@ -366,7 +369,25 @@ var LIBRARY_DEPS_TO_AUTOEXPORT = ['memcpy']; // This list is also used to determ
                                              // so we must export so that if they are implemented in C
                                              // they will be accessible, in ASM_JS mode).
 
-var IGNORED_FUNCTIONS = []; // Functions that we should not generate, neither a stub nor a complete function.
+var IGNORED_FUNCTIONS = [
+  '_getStartupScript',
+  '_em_midi_play',
+  '_em_midi_stop',
+  '_em_midi_is_playing',
+  '_em_midi_volume',
+  '_playttd_set_canvas_size',
+  '_playttd_fps_counter',
+  '_playttd_set_main_loop',
+  '_playttd_blitter_skipTopPixels',
+  '_playttd_blitter_drawLine',
+  '__draw',
+  '__drawWithRemap',
+  '__drawTransparent',
+  '__drawCopy',
+  '_isConnected',
+  '_setConnected'
+]; 
+                            // Functions that we should not generate, neither a stub nor a complete function.
                             // This is useful if your project code includes a function, and you want to replace
                             // that in the compiled code with your own handwritten JS. (Of course even without
                             // this option, you could just override the generated function at runtime. However,

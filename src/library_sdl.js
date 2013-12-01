@@ -490,6 +490,10 @@ var LibrarySDL = {
     savedKeydown: null,
 
     receiveEvent: function(event) {
+      if (Module['disable_sdl_envents'] == true) {
+        return;
+      }
+
       function unpressAllPressedKeys() {
         // Un-press all pressed keys: TODO
         for (var code in SDL.keyboardMap) {

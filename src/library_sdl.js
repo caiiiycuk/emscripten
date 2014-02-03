@@ -13,9 +13,9 @@ var LibrarySDL = {
   $SDL__deps: ['$FS', '$PATH', '$Browser'],
   $SDL: {
     defaults: {
-      width: 320,
-      height: 200,
-      copyOnLock: true
+      width: 600,
+      height: 400,
+      copyOnLock: false
     },
 
     version: null,
@@ -417,6 +417,10 @@ var LibrarySDL = {
     savedKeydown: null,
 
     receiveEvent: function(event) {
+      if (Module['disable_sdl_envents'] == true) {
+        return;
+      }
+
       switch(event.type) {
         case 'touchstart':
           event.preventDefault();

@@ -1927,7 +1927,7 @@ var LibrarySDL = {
     }
     if (pauseOn) {
       if (SDL.audio.timer !== undefined) {
-        clearTimeout(SDL.audio.timer);
+        Browser.safeClearTimeout(SDL.audio.timer);
         SDL.audio.numAudioTimersPending = 0;
         SDL.audio.timer = undefined;
       }

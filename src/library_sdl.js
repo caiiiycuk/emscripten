@@ -1100,15 +1100,20 @@ var LibrarySDL = {
         audio.webAudioNode['loop'] = audio.loop;
         audio.webAudioNode['onended'] = function() { audio['onended'](); } // For <media> element compatibility, route the onended signal to the instance.
 
-        audio.webAudioPannerNode = SDL.audioContext['createPanner']();
-        audio.webAudioPannerNode['panningModel'] = 'equalpower';
-
         // Add an intermediate gain node to control volume.
         audio.webAudioGainNode = SDL.audioContext['createGain']();
         audio.webAudioGainNode['gain']['value'] = audio.volume;
 
-        audio.webAudioNode['connect'](audio.webAudioPannerNode);
-        audio.webAudioPannerNode['connect'](audio.webAudioGainNode);
+        var usePannerNode = Module['SDL_mixer_support_panning'] === undefined || Module['SDL_mixer_support_panning'];
+        if (usePannerNode) {
+          audio.webAudioPannerNode = SDL.audioContext['createPanner']();
+          audio.webAudioPannerNode['panningModel'] = 'equalpower';
+          audio.webAudioNode['connect'](audio.webAudioPannerNode);
+          audio.webAudioPannerNode['connect'](audio.webAudioGainNode);
+        } else {
+          audio.webAudioNode['connect'](audio.webAudioGainNode);
+        }
+        
         audio.webAudioGainNode['connect'](SDL.audioContext['destination']);
 
         audio.webAudioNode['start'](0, audio.currentPosition);

@@ -31,4 +31,6 @@
   docs/contributing/index
   docs/optimizing/Profiling-Toolchain
 
+  docs/talks/index
+
   docs/site/about

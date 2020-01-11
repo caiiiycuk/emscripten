@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>About Emscripten &mdash; Emscripten 1.39.5 documentation</title>
+  <title>О Emscripten &mdash; Emscripten 1.39.5 documentation</title>
   
 
   
@@ -34,9 +34,9 @@
               href="../../genindex.html"/>
         <link rel="search" title="Search" href="../../search.html"/>
     <link rel="top" title="Emscripten 1.39.5 documentation" href="../../index.html"/>
-        <link rel="up" title="Introducing Emscripten" href="index.html"/>
+        <link rel="up" title="Введение в Emscripten" href="index.html"/>
         <link rel="next" title="Community" href="community.html"/>
-        <link rel="prev" title="Introducing Emscripten" href="index.html"/> 
+        <link rel="prev" title="Введение в Emscripten" href="index.html"/> 
 
   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
@@ -85,10 +85,10 @@
 		 
         
             <ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">Introducing Emscripten</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">About Emscripten</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#emscripten-toolchain">Emscripten Toolchain</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#porting-code-to-use-emscripten">Porting code to use Emscripten</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Введение в Emscripten</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">О Emscripten</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#about-emscripten-toolchain">Инструментарий Emscripten</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#about-emscripten-porting-code">Подготовка кода к портированию с  Emscripten</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="community.html">Community</a><ul>
@@ -1069,9 +1069,9 @@
   <div class="breadcrumb-box">
      <a class="breadcrumb-box-item" href="../../index.html">Домой</a> 
       
-          <a class="breadcrumb-box-item" href="index.html">&raquo;&nbsp;Introducing Emscripten</a>
+          <a class="breadcrumb-box-item" href="index.html">&raquo;&nbsp;Введение в Emscripten</a>
       
-    <div class="breadcrumb-box-item">&raquo;&nbsp;About Emscripten</div>
+    <div class="breadcrumb-box-item">&raquo;&nbsp;О Emscripten</div>
   </div>
  
 </div>
@@ -1087,52 +1087,52 @@
   <div class="breadcrumb-box">
      <a class="breadcrumb-box-item" href="../../index.html">Домой</a> 
       
-          <a class="breadcrumb-box-item" href="index.html">&raquo;&nbsp;Introducing Emscripten</a>
+          <a class="breadcrumb-box-item" href="index.html">&raquo;&nbsp;Введение в Emscripten</a>
       
-    <div class="breadcrumb-box-item">&raquo;&nbsp;About Emscripten</div>
+    <div class="breadcrumb-box-item">&raquo;&nbsp;О Emscripten</div>
   </div>
  
 </div> -->
           <div role="main">
             
-  <div class="section" id="about-emscripten">
-<span id="id1"></span><h1>About Emscripten<a class="headerlink" href="#about-emscripten" title="Permalink to this headline">¶</a></h1>
-<p>Emscripten is an <a class="reference internal" href="emscripten_license.html#emscripten-license"><span class="std std-ref">Open Source</span></a> LLVM to JavaScript compiler. Using Emscripten you can:</p>
+  <div class="section" id="emscripten">
+<span id="about-emscripten"></span><h1>О Emscripten<a class="headerlink" href="#emscripten" title="Permalink to this headline">¶</a></h1>
+<p>Emscripten это компилятор LLVM в JavaScript с <a class="reference internal" href="emscripten_license.html#emscripten-license"><span class="std std-ref">открытым исходным кодом</span></a>. Он позволяет:</p>
 <ul class="simple">
-<li>Compile C and C++ code into JavaScript</li>
-<li>Compile any other code that can be translated into LLVM bitcode into JavaScript.</li>
-<li>Compile the C/C++ <strong>runtimes</strong> of other languages into JavaScript, and then run code in those other languages in an <em>indirect</em> way (this has been done for Python and Lua)!</li>
+<li>Компилировать C и C++ код в JavaScript</li>
+<li>Компилировать любой другой код который может быть транслирован в LLVM байт код в JavaScript.</li>
+<li>Компилировать C/C++ <strong>среду выполнения</strong> других языков в JavaScript, и затем <em>косвенно</em> запускать код на этих языках (это было сделано для Python и Lua)!</li>
 </ul>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
-<p>Emscripten makes native code immediately available on the Web: a platform that is standards-based, has numerous independent compatible implementations, and runs everywhere from PCs to iPads.</p>
-<p class="last">With Emscripten, C/C++ developers don’t have the high cost of porting code manually to JavaScript — or having to learn JavaScript at all. Web developers also benefit, as they can use the many thousands of pre-existing native utilities and libraries in their sites.</p>
+<p>Emscripten делает нативный код немедленно доступным в Web: платформу которая стандартизированна, имеет несколько независисых реализаций, и работает везде на PC и iPad.</p>
+<p class="last">Вместе с Emscripten, C/C++ разработчики получают возможность бытсро портировать проект в JavaScript, вместо того что бы писать проект с нуля на новом языке (JavaScript). Web разработчики тоже получают преимущества, теперь разработчики могут использовать сотни существующих нативных билиотек и утилит.</p>
 </div>
-<p>Practically any <strong>portable</strong> C or C++ codebase can be compiled into JavaScript using Emscripten, ranging from high performance games that need to render graphics, play sounds, and load and process files, through to application frameworks like Qt. Emscripten has already been used to convert a <a class="reference external" href="https://github.com/emscripten-core/emscripten/wiki/Porting-Examples-and-Demos">very long list</a> of real-world codebases to JavaScript, including large projects like <em>CPython</em>, <a class="reference external" href="https://github.com/coolwanglu/emscripten/tree/master/tests/poppler#readme">Poppler</a> and the <a class="reference external" href="http://kripken.github.io/ammo.js/examples/new/ammo.html">Bullet Physics Engine</a>, as well as commercial projects like the <a class="reference external" href="https://blog.mozilla.org/blog/2014/03/12/mozilla-and-epic-preview-unreal-engine-4-running-in-firefox/">Unreal Engine 4</a> and the <a class="reference external" href="http://www.unity3d.com">Unity</a> engine. Here are two demos using Unity:</p>
+<p>На практике любая <strong>переносимая</strong> кодовая база C или С++ может быть скомпилирована в JavaScript с использованием Emscripten, от высоко производительных игр, воспроизводящих графику и звук, вплоть до полноценных фреймворков как Qt. С помощью Emscripten преобразовано <a class="reference external" href="https://github.com/emscripten-core/emscripten/wiki/Porting-Examples-and-Demos">множество проектов</a> в JavaScript, включая очень большие проекты как <em>CPython</em>, <a class="reference external" href="https://github.com/coolwanglu/emscripten/tree/master/tests/poppler#readme">Poppler</a> и <a class="reference external" href="http://kripken.github.io/ammo.js/examples/new/ammo.html">Bullet Physics Engine</a>, коммерческие проекты <a class="reference external" href="https://blog.mozilla.org/blog/2014/03/12/mozilla-and-epic-preview-unreal-engine-4-running-in-firefox/">Unreal Engine 4</a> и <a class="reference external" href="http://www.unity3d.com">Unity</a>. Например, два проекта на базе Unity:</p>
 <div class="figure align-left">
 <a class="reference external image-reference" href="http://beta.unity3d.com/jonas/AngryBots/"><img alt="Angrybots game logo" src="../../_images/angrybots.png" /></a>
 </div>
 <div class="figure align-left">
 <a class="reference external image-reference" href="http://beta.unity3d.com/jonas/DT2/"><img alt="Dead Trigger 2 Game logo" src="../../_images/DEAD-TRIGGER-2-Icon1.png" /></a>
 </div>
-<div style="clear:both;"></div><p>For more demos, see the <a class="reference external" href="https://github.com/emscripten-core/emscripten/wiki/Porting-Examples-and-Demos">list on the wiki</a>.</p>
-<p>Emscripten generates fast code! Its default output format is <a class="reference external" href="http://asmjs.org">asm.js</a> , a highly optimizable subset of JavaScript that can execute at close to native speed in many cases (check out the <a class="reference external" href="http://arewefastyet.com/#machine=11&amp;view=breakdown&amp;suite=asmjs-ubench">current benchmark results</a> or run the <a class="reference internal" href="../getting_started/test-suite.html#benchmarking"><span class="std std-ref">benchmark tests</span></a> yourself). Optimized Emscripten code has also been <a class="reference external" href="http://mozakai.blogspot.com/2011/11/code-size-when-compiling-to-javascript.html">shown to have</a> a similar <em>effective size</em> to native code, when both are gzipped.</p>
-<p>For a better understanding of just how fast and fluid Emscripten-ported code can be, check out the <a class="reference external" href="http://beta.unity3d.com/jonas/DT2/">Dead Trigger 2</a> and <a class="reference external" href="http://beta.unity3d.com/jonas/AngryBots/">Angrybots</a> demos above.</p>
-<div class="section" id="emscripten-toolchain">
-<span id="about-emscripten-toolchain"></span><h2>Emscripten Toolchain<a class="headerlink" href="#emscripten-toolchain" title="Permalink to this headline">¶</a></h2>
-<p>A high level view of the Emscripten toolchain is given below. The main tool is the <a class="reference internal" href="../tools_reference/emcc.html#emccdoc"><span class="std std-ref">Emscripten Compiler Frontend (emcc)</span></a>. This is a drop-in replacement for a standard compiler like <em>gcc</em>.</p>
+<div style="clear:both;"></div><p>Ссылки на другие проекты <a class="reference external" href="https://github.com/emscripten-core/emscripten/wiki/Porting-Examples-and-Demos">смотри в wiki</a>.</p>
+<p>Emscripten генерирует быстрый код. По умолчанию генерируется WebAssembly или <a class="reference external" href="http://asmjs.org">asm.js</a>. WebAssembly новый форма исполнения кода в Web, он исполняется со скоростью близкой к нативной (<a class="reference external" href="http://arewefastyet.com/#machine=11&amp;view=breakdown&amp;suite=asmjs-ubench">текущие результаты тестов производительности</a> или запустите <a class="reference internal" href="../getting_started/test-suite.html#benchmarking"><span class="std std-ref">тесты</span></a> самостоятельно). Оптимизированный код так же имеет близкий размер к нативному коду (при использовании gzip сжатия).</p>
+<p>Для лучшего понимания на сколько быстр может быть код Emscripten, запустите <a class="reference external" href="http://beta.unity3d.com/jonas/DT2/">Dead Trigger 2</a> или <a class="reference external" href="http://beta.unity3d.com/jonas/AngryBots/">Angrybots</a>.</p>
+<div class="section" id="about-emscripten-toolchain">
+<span id="id3"></span><h2>Инструментарий Emscripten<a class="headerlink" href="#about-emscripten-toolchain" title="Permalink to this headline">¶</a></h2>
+<p>Обобщенный взгляд на инструментарий Emscripten приведен ниже. Основная утилита <a class="reference internal" href="../tools_reference/emcc.html#emccdoc"><span class="std std-ref">Emscripten Compiler Frontend (emcc)</span></a>. Это полная замена стандартного компилятора типа <em>gcc</em>.</p>
 <img alt="../../_images/EmscriptenToolchain.png" src="../../_images/EmscriptenToolchain.png" />
-<p><em>Emcc</em> uses <a class="reference internal" href="../site/glossary.html#term-clang"><span class="xref std std-term">Clang</span></a> and LLVM to compile to wasm or asm.js. Emscripten emits JavaScript that can run that compiled code and provide the necessary runtime support. That JavaScript can be executed by <a class="reference internal" href="../site/glossary.html#term-node-js"><span class="xref std std-term">node.js</span></a>, or from within HTML in a browser.</p>
-<p>The <a class="reference internal" href="../tools_reference/emsdk.html#emsdk"><span class="std std-ref">Emscripten SDK (emsdk)</span></a> is used to manage multiple SDKs and tools, and to specify the particular SDK/set of tools currently being used to compile code (the <a class="reference internal" href="../site/glossary.html#term-active-tool-sdk"><span class="xref std std-term">Active Tool/SDK</span></a>). It can even “install” (download and build) the latest toolchain from GitHub!</p>
-<p><em>Emsdk</em> writes the “active” configuration to the <a class="reference internal" href="../tools_reference/emsdk.html#compiler-configuration-file"><span class="std std-ref">Emscripten Compiler Configuration File (.emscripten)</span></a>. This file is used by <em>emcc</em> to get the correct current toolchain for building.</p>
-<p>A number of other tools are not shown — for example, Java can optionally be used by <em>emcc</em> to run the <a class="reference internal" href="../site/glossary.html#term-closure-compiler"><span class="xref std std-term">closure compiler</span></a>, which can further decrease code size.</p>
-<p>The whole toolchain is delivered in the <a class="reference internal" href="../getting_started/downloads.html#sdk-download-and-install"><span class="std std-ref">Emscripten SDK</span></a>, and can be used on Linux, Windows or macOS.</p>
+<p><em>Emcc</em> использует <a class="reference internal" href="../site/glossary.html#term-clang"><span class="xref std std-term">Clang</span></a> и LLVM для компиляции в wasm или asm.js. Emscripten производит JavaScript который способен запустить скомпилированный код и предоставляет необходимую среду выполнения. Этот JavaScript может быть выполнен в <a class="reference internal" href="../site/glossary.html#term-node-js"><span class="xref std std-term">node.js</span></a>, или внутри HTML в браузере.</p>
+<p><a class="reference internal" href="../tools_reference/emsdk.html#emsdk"><span class="std std-ref">Emscripten SDK (emsdk)</span></a> используется для управления несколькими SDK и инструментами, и для указания определенной версии SDK/набора инструментов используемых для компиляции кода (<a class="reference internal" href="../site/glossary.html#term-active-tool-sdk"><span class="xref std std-term">Active Tool/SDK</span></a>). В том числе он может установить (скачать и построить) последний инструментарий с GitHub!</p>
+<p><em>Emsdk</em> записывает “активную” конфигурацию в <a class="reference internal" href="../tools_reference/emsdk.html#compiler-configuration-file"><span class="std std-ref">Emscripten Compiler Configuration File (.emscripten)</span></a>. Этот файл используется <em>emcc</em> для определения текущего инструментария для сборки.</p>
+<p>Несколько других пока не задокументированы, например, Java может быть использована <em>emcc</em> для запуска <a class="reference internal" href="../site/glossary.html#term-closure-compiler"><span class="xref std std-term">closure compiler</span></a>, который может ещё больше уменьшить размер файла.</p>
+<p>Полный инструментарий поставляется в составе <a class="reference internal" href="../getting_started/downloads.html#sdk-download-and-install"><span class="std std-ref">Emscripten SDK</span></a>, и может быть использован в Linux, Windows or macOS.</p>
 </div>
-<div class="section" id="porting-code-to-use-emscripten">
-<span id="about-emscripten-porting-code"></span><h2>Porting code to use Emscripten<a class="headerlink" href="#porting-code-to-use-emscripten" title="Permalink to this headline">¶</a></h2>
-<p>Emscripten support for <strong>portable</strong> C/C++ code is fairly comprehensive. Support for the C standard library, C++ standard library, C++ exceptions, etc. is very good. <a class="reference external" href="https://www.libsdl.org/">SDL</a> support is sufficient to run quite a lot of code. <a class="reference internal" href="../porting/multimedia_and_graphics/OpenGL-support.html#opengl-support"><span class="std std-ref">OpenGL support in Emscripten</span></a> support is excellent for OpenGL ES 2.0-type code, and acceptable for other types.</p>
-<p>There are differences between the native and <a class="reference internal" href="../porting/emscripten-runtime-environment.html#emscripten-runtime-environment"><span class="std std-ref">Emscripten Runtime Environment</span></a>, which mean some changes usually need to be made to the native code. That said, many applications will only need to change the way they define their main loop, and also modify their <a class="reference internal" href="../porting/files/file_systems_overview.html#file-system-overview"><span class="std std-ref">file handling</span></a> to adapt to the limitations of the browser/JavaScript.</p>
-<p>There are also limitations that can make some code easier to port — read <a class="reference internal" href="../porting/guidelines/portability_guidelines.html#code-portability-guidelines"><span class="std std-ref">Portability Guidelines</span></a> to determine where you may need to spend more effort.</p>
+<div class="section" id="about-emscripten-porting-code">
+<span id="id4"></span><h2>Подготовка кода к портированию с  Emscripten<a class="headerlink" href="#about-emscripten-porting-code" title="Permalink to this headline">¶</a></h2>
+<p>Emscripten поддерживает <strong>переносимый</strong> C/C++ код. Поддерживаются: стандартная библиотека C и С++, С++ исключения, и пр. Поддержка <a class="reference external" href="https://www.libsdl.org/">SDL</a> достаточная для запуска большинства проектов. Отличная поддержка <a class="reference internal" href="../porting/multimedia_and_graphics/OpenGL-support.html#opengl-support"><span class="std std-ref">OpenGL support in Emscripten</span></a> для OpenGL ES 2.0, и приемлемая для других версий.</p>
+<p>Есть несколько различий между нативным и <a class="reference internal" href="../porting/emscripten-runtime-environment.html#emscripten-runtime-environment"><span class="std std-ref">Emscripten Runtime Environment</span></a> окружением, что предполагает что некоторый изменения нужно внести в нативный код. Для большинства приложений достаточно лишь изменить способ организации основного цикла программы, и ref:<cite>работы с файлами &lt;file-system-overview&gt;</cite> что бы соответствовать ограничениям браузера/JavaSCript.</p>
+<p>Если придерживаться некоторых правил ref:<cite>code-portability-guidelines</cite>, то можно значительно упросить процесс портирования.</p>
 </div>
 </div>
 
@@ -1145,7 +1145,7 @@
         <a href="community.html" class="btn btn-neutral float-right" title="Community"/>Далее <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="index.html" class="btn btn-neutral" title="Introducing Emscripten"><span class="fa fa-arrow-circle-left"></span> Назад</a>
+        <a href="index.html" class="btn btn-neutral" title="Введение в Emscripten"><span class="fa fa-arrow-circle-left"></span> Назад</a>
       
     </div>
   
@@ -1194,9 +1194,9 @@
   <div class="breadcrumb-box">
      <a class="breadcrumb-box-item" href="../../index.html">Домой</a> 
       
-          <a class="breadcrumb-box-item" href="index.html">&raquo;&nbsp;Introducing Emscripten</a>
+          <a class="breadcrumb-box-item" href="index.html">&raquo;&nbsp;Введение в Emscripten</a>
       
-    <div class="breadcrumb-box-item">&raquo;&nbsp;About Emscripten</div>
+    <div class="breadcrumb-box-item">&raquo;&nbsp;О Emscripten</div>
   </div>
  
 </div> -->
@@ -1219,7 +1219,7 @@
       </li>
 	  
 	  <li class="wy-breadcrumbs-aside">
-        <a href="https://github.com/emscripten-core/emscripten/issues/new?title=Bug%20in%20page:About%20Emscripten%20&body=REPLACE%20THIS%20TEXT%20WITH%20BUG%20DESCRIPTION%20%0A%0AURL:%20../../docs/introducing_emscripten/about_emscripten&labels=bug">Сообщить об ошибке на странице</a>
+        <a href="https://github.com/emscripten-core/emscripten/issues/new?title=Bug%20in%20page:%D0%9E%20Emscripten%20&body=REPLACE%20THIS%20TEXT%20WITH%20BUG%20DESCRIPTION%20%0A%0AURL:%20../../docs/introducing_emscripten/about_emscripten&labels=bug">Сообщить об ошибке на странице</a>
       </li>
   </ul>
   

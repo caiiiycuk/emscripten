@@ -1,10 +1,10 @@
 .. _introducting-emscripten-index:
 
-======================
-Introducing Emscripten
-======================
+=====================
+Введение в Emscripten
+=====================
 
-This section explains what Emscripten does, why it is needed, its limitations and its licensing. After reading, you will understand whether Emscripten is the right tool for you, and where to go if you have :ref:`further questions <community>`.
+Этот раздел объясняет что делает Emscripten, почему он нужен, какие есть ограничения, какая лицензия у проекта. После прочтения Вы сможете понять подходит ли Emscripten для Ваших задач, и куда обратиться если остались вопросы :ref:`остались вопросы <community>`.
 
 .. toctree::
    :maxdepth: 1

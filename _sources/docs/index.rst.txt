@@ -2,39 +2,38 @@
 
 .. _documentation-home:
 
-========================
-Emscripten Documentation
-========================
+=======================
+Документация Emscripten 
+=======================
+ 
+Данная документация содержит все необходимые сведения об Emscripten.
+ 
+**Введение:**
 
+- :ref:`introducting-emscripten-index` объясняет как Emscripten используется, почему он нужен, его ограничения и данные о лицензии. Эта глава поможет понять нужен ли вам Emscripten.
+- :ref:`getting-started-index` установка и использование Emscripten SDK. 
+ 
+**Основы Emscripten:**
+ 
+- :ref:`integrating-porting-index` демонстрирует основные различия между нативным окружением и Emscripten, так же объясняет изменения которые нужно внести в C/C++ код для Web. 
+- :ref:`Optimizing-Code` рекомендации по оптимизации кода для уменьшения размера и увеличения производительности. 
+- :ref:`Optimizing-WebGL` оптимизация производительности WebGL. 
+- :ref:`compiling-and-running-projects-index` способы интеграции Emscripten в существующие сборочные системы. 
 
-This comprehensive documentation set contains everything you need to know to use Emscripten.
+**Внести свой вклад:**
 
-**Getting started:**
+- :ref:`contributing-to-emscripten-index` объясняет как внести свой вклад в проект. 
+- :ref:`installing-from-source` способы сборки Emscripten из исходников на GitHub (полезно для разработчиков проекта). 
+- :ref:`about-this-site` описание инструментов и конвенций используемых при разработке этого сайта. 
 
-- :ref:`introducting-emscripten-index` explains what Emscripten does, why it is needed, its limitations and its licensing. It will help you understand whether Emscripten is the right tool for you.
-- :ref:`getting-started-index` walks you through downloading, installing and using the Emscripten SDK.
+**Справочник:**
 
-**Emscripten Fundamentals:**
+- :ref:`api-reference-index` справочник по API Emscripten. 
+- :ref:`tools-reference` справочник по инструментам Emscripten. 
+- :ref:`CyberDWARF` способы использования отладочной системы CyberDWARF.
+- :ref:`Sanitizers` отладка с использованием 'sanitizers' 
 
-- :ref:`integrating-porting-index` illustrates the main differences between the native and Emscripten runtime environments, and explains the changes you need to make to prepare your C/C++ code for the Web.
-- :ref:`Optimizing-Code` shows how to optimise your code for size and performance.
-- :ref:`Optimizing-WebGL` gives tips for how to maximize WebGL rendering performance for your page.
-- :ref:`compiling-and-running-projects-index` demonstrates how to integrate Emscripten into your existing project build system.
-
-**Contributing:**
-
-- :ref:`contributing-to-emscripten-index` explains how you can contribute to the project.
-- :ref:`installing-from-source` explains how to build Emscripten from sources on GitHub (this is useful for contributors).
-- :ref:`about-this-site` describes the documentation tools and writing conventions used to create this site.
-
-**Reference:**
-
-- :ref:`api-reference-index` is a reference for the Emscripten toolchain.
-- :ref:`tools-reference` is a reference for the Emscripten integration APIs.
-- :ref:`CyberDWARF` shows how to use the CyberDWARF debugging system
-- :ref:`Sanitizers` shows how to debug with sanitizers
-
-The full hierarchy of articles, opened to the second level, is shown below.
+Полный список статей (включая статьи второго уровня):
 
 .. toctree::
   :maxdepth: 2

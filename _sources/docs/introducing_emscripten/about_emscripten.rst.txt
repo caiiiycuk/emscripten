@@ -1,20 +1,20 @@
 .. _about-emscripten:
 
-================
-About Emscripten
-================
+============
+О Emscripten
+============
 
-Emscripten is an :ref:`Open Source <emscripten-license>` LLVM to JavaScript compiler. Using Emscripten you can:
+Emscripten это компилятор LLVM в JavaScript с :ref:`открытым исходным кодом <emscripten-license>`. Он позволяет:
 
-- Compile C and C++ code into JavaScript
-- Compile any other code that can be translated into LLVM bitcode into JavaScript.
-- Compile the C/C++ **runtimes** of other languages into JavaScript, and then run code in those other languages in an *indirect* way (this has been done for Python and Lua)!
+- Компилировать C и C++ код в JavaScript
+- Компилировать любой другой код который может быть транслирован в LLVM байт код в JavaScript.
+- Компилировать C/C++ **среду выполнения** других языков в JavaScript, и затем *косвенно* запускать код на этих языках (это было сделано для Python и Lua)! 
 
-.. tip:: Emscripten makes native code immediately available on the Web: a platform that is standards-based, has numerous independent compatible implementations, and runs everywhere from PCs to iPads.
+.. tip:: Emscripten делает нативный код немедленно доступным в Web: платформу которая стандартизированна, имеет несколько независисых реализаций, и работает везде на PC и iPad.
 
-  With Emscripten, C/C++ developers don't have the high cost of porting code manually to JavaScript — or having to learn JavaScript at all. Web developers also benefit, as they can use the many thousands of pre-existing native utilities and libraries in their sites.
+  Вместе с Emscripten, C/C++ разработчики получают возможность бытсро портировать проект в JavaScript, вместо того что бы писать проект с нуля на новом языке (JavaScript). Web разработчики тоже получают преимущества, теперь разработчики могут использовать сотни существующих нативных билиотек и утилит.
 
-Practically any **portable** C or C++ codebase can be compiled into JavaScript using Emscripten, ranging from high performance games that need to render graphics, play sounds, and load and process files, through to application frameworks like Qt. Emscripten has already been used to convert a `very long list <https://github.com/emscripten-core/emscripten/wiki/Porting-Examples-and-Demos>`_ of real-world codebases to JavaScript, including large projects like *CPython*, `Poppler <https://github.com/coolwanglu/emscripten/tree/master/tests/poppler#readme>`_ and the `Bullet Physics Engine <http://kripken.github.io/ammo.js/examples/new/ammo.html>`_, as well as commercial projects like the `Unreal Engine 4 <https://blog.mozilla.org/blog/2014/03/12/mozilla-and-epic-preview-unreal-engine-4-running-in-firefox/>`_ and the `Unity <http://www.unity3d.com>`_ engine. Here are two demos using Unity:
+На практике любая **переносимая** кодовая база C или С++ может быть скомпилирована в JavaScript с использованием Emscripten, от высоко производительных игр, воспроизводящих графику и звук, вплоть до полноценных фреймворков как Qt. С помощью Emscripten преобразовано `множество проектов <https://github.com/emscripten-core/emscripten/wiki/Porting-Examples-and-Demos>`_ в JavaScript, включая очень большие проекты как *CPython*, `Poppler <https://github.com/coolwanglu/emscripten/tree/master/tests/poppler#readme>`_ и `Bullet Physics Engine <http://kripken.github.io/ammo.js/examples/new/ammo.html>`_, коммерческие проекты `Unreal Engine 4 <https://blog.mozilla.org/blog/2014/03/12/mozilla-and-epic-preview-unreal-engine-4-running-in-firefox/>`_ и `Unity <http://www.unity3d.com>`_. Например, два проекта на базе Unity:
 
 .. figure:: angrybots.png
   :alt: Angrybots game logo
@@ -30,40 +30,41 @@ Practically any **portable** C or C++ codebase can be compiled into JavaScript u
 
   <div style="clear:both;"></div>
 
-For more demos, see the `list on the wiki <https://github.com/emscripten-core/emscripten/wiki/Porting-Examples-and-Demos>`_.
+Ссылки на другие проекты `смотри в wiki <https://github.com/emscripten-core/emscripten/wiki/Porting-Examples-and-Demos>`_.
 
-Emscripten generates fast code! Its default output format is `asm.js <http://asmjs.org>`_ , a highly optimizable subset of JavaScript that can execute at close to native speed in many cases (check out the `current benchmark results <http://arewefastyet.com/#machine=11&view=breakdown&suite=asmjs-ubench>`_ or run the :ref:`benchmark tests <benchmarking>` yourself). Optimized Emscripten code has also been `shown to have <http://mozakai.blogspot.com/2011/11/code-size-when-compiling-to-javascript.html>`_ a similar *effective size* to native code, when both are gzipped.
+Emscripten генерирует быстрый код. По умолчанию генерируется WebAssembly или `asm.js <http://asmjs.org>`_. WebAssembly новый форма исполнения кода в Web, он исполняется со скоростью близкой к нативной (`текущие результаты тестов производительности <http://arewefastyet.com/#machine=11&view=breakdown&suite=asmjs-ubench>`_ или запустите :ref:`тесты <benchmarking>` самостоятельно). Оптимизированный код так же имеет близкий размер к нативному коду (при использовании gzip сжатия).
 
-For a better understanding of just how fast and fluid Emscripten-ported code can be, check out the `Dead Trigger 2 <http://beta.unity3d.com/jonas/DT2/>`_ and `Angrybots <http://beta.unity3d.com/jonas/AngryBots/>`_ demos above.
+Для лучшего понимания на сколько быстр может быть код Emscripten, запустите `Dead Trigger 2 <http://beta.unity3d.com/jonas/DT2/>`_ или `Angrybots <http://beta.unity3d.com/jonas/AngryBots/>`_.
 
 .. _about-emscripten-toolchain:
 
-Emscripten Toolchain
-====================
+Инструментарий Emscripten
+=========================
 
-A high level view of the Emscripten toolchain is given below. The main tool is the :ref:`emccdoc`. This is a drop-in replacement for a standard compiler like *gcc*.
+Обобщенный взгляд на инструментарий Emscripten приведен ниже. Основная утилита :ref:`emccdoc`. Это полная замена стандартного компилятора типа *gcc*.
 
 .. image:: EmscriptenToolchain.png
 
-*Emcc* uses :term:`Clang` and LLVM to compile to wasm or asm.js. Emscripten emits JavaScript that can run that compiled code and provide the necessary runtime support. That JavaScript can be executed by :term:`node.js`, or from within HTML in a browser.
+*Emcc* использует :term:`Clang` и LLVM для компиляции в wasm или asm.js. Emscripten производит JavaScript который способен запустить скомпилированный код и предоставляет необходимую среду выполнения. Этот JavaScript может быть выполнен в :term:`node.js`, или внутри HTML в браузере.
 
-The :ref:`emsdk` is used to manage multiple SDKs and tools, and to specify the particular SDK/set of tools currently being used to compile code (the :term:`Active Tool/SDK`). It can even "install" (download and build) the latest toolchain from GitHub!
+:ref:`emsdk` используется для управления несколькими SDK и инструментами, и для указания определенной версии SDK/набора инструментов используемых для компиляции кода (:term:`Active Tool/SDK`). В том числе он может установить (скачать и построить) последний инструментарий с GitHub!
 
-*Emsdk* writes the "active" configuration to the :ref:`compiler-configuration-file`. This file is used by *emcc* to get the correct current toolchain for building.
+*Emsdk* записывает "активную" конфигурацию в :ref:`compiler-configuration-file`. Этот файл используется *emcc* для определения текущего инструментария для сборки.
 
-A number of other tools are not shown — for example, Java can optionally be used by *emcc* to run the :term:`closure compiler`, which can further decrease code size.
+Несколько других пока не задокументированы, например, Java может быть использована *emcc* для запуска :term:`closure compiler`, который может ещё больше уменьшить размер файла.
 
-The whole toolchain is delivered in the :ref:`Emscripten SDK <sdk-download-and-install>`, and can be used on Linux, Windows or macOS.
+Полный инструментарий поставляется в составе :ref:`Emscripten SDK <sdk-download-and-install>`, и может быть использован в Linux, Windows or macOS.
 
 .. _about-emscripten-porting-code:
 
-Porting code to use Emscripten
-==============================
+Подготовка кода к портированию с  Emscripten
+============================================
 
-Emscripten support for **portable** C/C++ code is fairly comprehensive. Support for the C standard library, C++ standard library, C++ exceptions, etc. is very good. `SDL <https://www.libsdl.org/>`_ support is sufficient to run quite a lot of code. :ref:`OpenGL-support` support is excellent for OpenGL ES 2.0-type code, and acceptable for other types.
+Emscripten поддерживает **переносимый** C/C++ код. Поддерживаются: стандартная библиотека C и С++, С++ исключения, и пр. Поддержка `SDL <https://www.libsdl.org/>`_ достаточная для запуска большинства проектов. Отличная поддержка :ref:`OpenGL-support` для OpenGL ES 2.0, и приемлемая для других версий.
 
-There are differences between the native and :ref:`emscripten-runtime-environment`, which mean some changes usually need to be made to the native code. That said, many applications will only need to change the way they define their main loop, and also modify their :ref:`file handling <file-system-overview>` to adapt to the limitations of the browser/JavaScript.
+Есть несколько различий между нативным и :ref:`emscripten-runtime-environment` окружением, что предполагает что некоторый изменения нужно внести в нативный код. Для большинства приложений достаточно лишь изменить способ организации основного цикла программы, и ref:`работы с файлами <file-system-overview>` что бы соответствовать ограничениям браузера/JavaSCript.
 
-There are also limitations that can make some code easier to port — read :ref:`code-portability-guidelines` to determine where you may need to spend more effort.
+
+Если придерживаться некоторых правил ref:`code-portability-guidelines`, то можно значительно упросить процесс портирования.
 
 

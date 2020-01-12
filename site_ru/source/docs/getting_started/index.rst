@@ -1,14 +1,14 @@
 .. _getting-started-index:
 
-===============
-Getting Started
-===============
+=============
+С чего начать
+=============
 
-Now you know why Emscripten is :ref:`right for you <about-emscripten>`, it's time to *get started*.
+Теперь вы знаете что Emscripten :ref:`Вам подходит <about-emscripten>`, значит пора начинать.
 
-This section provides a walk-through of :ref:`downloading and installing the SDK <sdk-download-and-install>` and the basics of :ref:`using the Emscripten toolchain <Tutorial>`. The general :ref:`FAQ` answers many common questions about setting up and using Emscripten.
+Этот раздел поможет вам :ref:`скачать и установить SDK <sdk-download-and-install>` и :ref:`расскажет как использовать инструменты Emscripten <Tutorial>`. Ответы на часто задаваемые вопросы можно найти в разделе :ref:`FAQ`. 
 
-We also explain where to :ref:`Report Bugs <bug-reports>` in the toolchain and the site. The :ref:`emscripten-test-suite` is a great resource for finding examples of how to use Emscripten.
+Кроме того вы можете :ref:`Сообщить о ошибках <bug-reports>` инструментарии или на сайте. Раздел :ref:`emscripten-test-suite` идеально подходит для поиска примеров использования Emscripten.
 
 .. toctree::
   :maxdepth: 1

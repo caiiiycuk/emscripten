@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Release Notes &mdash; Emscripten 1.39.5 documentation</title>
+  <title>Примечания к выпуску &mdash; Emscripten 1.39.5 documentation</title>
   
 
   
@@ -35,7 +35,7 @@
         <link rel="search" title="Search" href="../../search.html"/>
     <link rel="top" title="Emscripten 1.39.5 documentation" href="../../index.html"/>
         <link rel="up" title="Введение в Emscripten" href="index.html"/>
-        <link rel="next" title="Talks and Publications" href="Talks-and-Publications.html"/>
+        <link rel="next" title="Обсуждение и публикации" href="Talks-and-Publications.html"/>
         <link rel="prev" title="Проект с открытым исходным кодом" href="emscripten_license.html"/> 
 
   
@@ -99,14 +99,14 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="emscripten_license.html">Проект с открытым исходным кодом</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Release Notes</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#changelog">ChangeLog</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Примечания к выпуску</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#changelog">Лог изменений</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="Talks-and-Publications.html">Talks and Publications</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="Talks-and-Publications.html#presentations">Presentations</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Talks-and-Publications.html#papers">Papers</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Talks-and-Publications.html#books">Books</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Talks-and-Publications.html">Обсуждение и публикации</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Talks-and-Publications.html#id2">Презентации</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Talks-and-Publications.html#id12">Публикации</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Talks-and-Publications.html#id14">Книги</a></li>
 </ul>
 </li>
 </ul>
@@ -1071,7 +1071,7 @@
       
           <a class="breadcrumb-box-item" href="index.html">&raquo;&nbsp;Введение в Emscripten</a>
       
-    <div class="breadcrumb-box-item">&raquo;&nbsp;Release Notes</div>
+    <div class="breadcrumb-box-item">&raquo;&nbsp;Примечания к выпуску</div>
   </div>
  
 </div>
@@ -1089,27 +1089,26 @@
       
           <a class="breadcrumb-box-item" href="index.html">&raquo;&nbsp;Введение в Emscripten</a>
       
-    <div class="breadcrumb-box-item">&raquo;&nbsp;Release Notes</div>
+    <div class="breadcrumb-box-item">&raquo;&nbsp;Примечания к выпуску</div>
   </div>
  
 </div> -->
           <div role="main">
             
   <div class="section" id="release-notes">
-<span id="id1"></span><h1>Release Notes<a class="headerlink" href="#release-notes" title="Permalink to this headline">¶</a></h1>
-<p>Changes between tagged Emscripten versions are recorded in the <a class="reference internal" href="#changelog"><span class="std std-ref">ChangeLog</span></a>.
-This log includes high-level information about new features, user-oriented
-fixes, options, command-line parameters, usage changes, deprecations,
-significant internal modifications, optimizations, etc. The log for each version
-links to a detailed diff report, which lists all the incremental changes since
-the previous release.</p>
-<p>In addition, the mailing list is used to announce each new <a class="reference internal" href="../site/glossary.html#term-sdk"><span class="xref std std-term">SDK</span></a> release;
-these announcements include additional informal release notes and “highlights”
-information. The easiest way to find these posts is to use <a class="reference external" href="https://groups.google.com/forum/#!searchin/emscripten-discuss/%22Emscripten$20SDK%22$20$20AND$20(released$20OR$20out$20OR$20available)">this search</a>.</p>
+<span id="id1"></span><h1>Примечания к выпуску<a class="headerlink" href="#release-notes" title="Permalink to this headline">¶</a></h1>
+<p>Изменения между версиями Emscripten записываются в ref:<cite>ChangeLog</cite>. Этот лог
+включает общую информацию о новых возможностях, исправлениях, опциях, параметрах
+командной строки, правилах использования, значительных внутренних изменениях, оптимизациях,
+и так далее. Лог каждой версии содержит ссылки на детализированный diff отчет, который
+включает все изменения с предыдущей версии.</p>
+<p>В дополнение, в почтовый рассылке сообщается о новых версиях <a class="reference internal" href="../site/glossary.html#term-sdk"><span class="xref std std-term">SDK</span></a>; эти сообщения
+содержат дополнительные примечания к выпуску и “ключевые” особенности выпуска. Самый простой
+способ найти это сообщения - использовать <a class="reference external" href="https://groups.google.com/forum/#!searchin/emscripten-discuss/%22Emscripten$20SDK%22$20$20AND$20(released$20OR$20out$20OR$20available)">поисковый запрос</a>.</p>
 <div class="section" id="changelog">
-<span id="id2"></span><h2>ChangeLog<a class="headerlink" href="#changelog" title="Permalink to this headline">¶</a></h2>
-<p>The ChangeLog for Emscripten 1.39.5 (Jan 12, 2020) is listed below (incoming version
-<a class="reference external" href="https://github.com/emscripten-core/emscripten/blob/incoming/ChangeLog.md">here</a>).</p>
+<span id="id3"></span><h2>Лог изменений<a class="headerlink" href="#changelog" title="Permalink to this headline">¶</a></h2>
+<p>Лог изменений Emscripten 1.39.5 (Jan 12, 2020) приведен ниже (версия incoming
+<a class="reference external" href="https://github.com/emscripten-core/emscripten/blob/incoming/ChangeLog.md">здесь</a>).</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>This document describes changes between tagged Emscripten SDK versions.
 
 Note that in the compiler, version numbering is used as the mechanism to
@@ -4857,7 +4856,7 @@ v1.0.1: 11/11/2012
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="Talks-and-Publications.html" class="btn btn-neutral float-right" title="Talks and Publications"/>Далее <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="Talks-and-Publications.html" class="btn btn-neutral float-right" title="Обсуждение и публикации"/>Далее <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="emscripten_license.html" class="btn btn-neutral" title="Проект с открытым исходным кодом"><span class="fa fa-arrow-circle-left"></span> Назад</a>
@@ -4911,7 +4910,7 @@ v1.0.1: 11/11/2012
       
           <a class="breadcrumb-box-item" href="index.html">&raquo;&nbsp;Введение в Emscripten</a>
       
-    <div class="breadcrumb-box-item">&raquo;&nbsp;Release Notes</div>
+    <div class="breadcrumb-box-item">&raquo;&nbsp;Примечания к выпуску</div>
   </div>
  
 </div> -->
@@ -4934,7 +4933,7 @@ v1.0.1: 11/11/2012
       </li>
 	  
 	  <li class="wy-breadcrumbs-aside">
-        <a href="https://github.com/emscripten-core/emscripten/issues/new?title=Bug%20in%20page:Release%20Notes%20&body=REPLACE%20THIS%20TEXT%20WITH%20BUG%20DESCRIPTION%20%0A%0AURL:%20../../docs/introducing_emscripten/release_notes&labels=bug">Сообщить об ошибке на странице</a>
+        <a href="https://github.com/emscripten-core/emscripten/issues/new?title=Bug%20in%20page:%D0%9F%D1%80%D0%B8%D0%BC%D0%B5%D1%87%D0%B0%D0%BD%D0%B8%D1%8F%20%D0%BA%20%D0%B2%D1%8B%D0%BF%D1%83%D1%81%D0%BA%D1%83%20&body=REPLACE%20THIS%20TEXT%20WITH%20BUG%20DESCRIPTION%20%0A%0AURL:%20../../docs/introducing_emscripten/release_notes&labels=bug">Сообщить об ошибке на странице</a>
       </li>
   </ul>
   

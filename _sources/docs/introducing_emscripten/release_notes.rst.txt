@@ -1,28 +1,27 @@
 .. _release-notes:
 
-=============
-Release Notes
-=============
+====================
+Примечания к выпуску
+====================
 
-Changes between tagged Emscripten versions are recorded in the :ref:`ChangeLog`.
-This log includes high-level information about new features, user-oriented
-fixes, options, command-line parameters, usage changes, deprecations,
-significant internal modifications, optimizations, etc. The log for each version
-links to a detailed diff report, which lists all the incremental changes since
-the previous release.
+Изменения между версиями Emscripten записываются в ref:`ChangeLog`. Этот лог 
+включает общую информацию о новых возможностях, исправлениях, опциях, параметрах 
+командной строки, правилах использования, значительных внутренних изменениях, оптимизациях,
+и так далее. Лог каждой версии содержит ссылки на детализированный diff отчет, который
+включает все изменения с предыдущей версии.
 
-In addition, the mailing list is used to announce each new :term:`SDK` release;
-these announcements include additional informal release notes and "highlights"
-information. The easiest way to find these posts is to use `this search
+В дополнение, в почтовый рассылке сообщается о новых версиях :term:`SDK`; эти сообщения
+содержат дополнительные примечания к выпуску и "ключевые" особенности выпуска. Самый простой
+способ найти это сообщения - использовать `поисковый запрос
 <https://groups.google.com/forum/#!searchin/emscripten-discuss/%22Emscripten$20SDK%22$20$20AND$20(released$20OR$20out$20OR$20available)>`_.
 
 .. _ChangeLog:
 
-ChangeLog
-=========
+Лог изменений
+=============
 
-The ChangeLog for Emscripten |release| (|today|) is listed below (incoming version
-`here <https://github.com/emscripten-core/emscripten/blob/incoming/ChangeLog.md>`_).
+Лог изменений Emscripten |release| (|today|) приведен ниже (версия incoming
+`здесь <https://github.com/emscripten-core/emscripten/blob/incoming/ChangeLog.md>`_).
 
 .. include::   ../../../../ChangeLog.md
    :literal:

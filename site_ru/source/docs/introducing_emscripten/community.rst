@@ -1,48 +1,49 @@
 .. _community:
 
-=========
-Community
-=========
+==========
+Сообщество
+==========
 
-Welcome to the Emscripten community!
+Добро пожаловать в сообщество Emscripten!
 
 
 .. _contact:
 
-Get in touch
+Будь в курсе
 ============
 
-The best ways to contact us for support are the *mailing list* and the *IRC* channel. Ask questions, share your ideas, or just join the conversation.
+Лучший способ связаться с нами - использовать *почтовую рассылку* и *IRC* канал. Задать вопрос, поделится идеей или просто поучаствовать в общении.
 
-- Mailing list: `emscripten-discuss <http://groups.google.com/group/emscripten-discuss>`_
+- Почтовая рассылка: `emscripten-discuss <http://groups.google.com/group/emscripten-discuss>`_
 - IRC: **#emscripten** on `irc.mozilla.org <https://wiki.mozilla.org/IRC>`_
 
-Emscripten also has a presence on social media:
+Emscripten так же присутствует в социальных сетях:
 
-- `#emscripten <https://twitter.com/hashtag/emscripten>`_ (Emscripten Hashtag on Twitter)
-- `@kripken <https://twitter.com/kripken>`_ (an Emscripten developer's account on Twitter, mentions Emscripten updates)
+- `#emscripten <https://twitter.com/hashtag/emscripten>`_ (Emscripten хэштэг в Twitter)
+- `@kripken <https://twitter.com/kripken>`_ (аккаунт разработчиков Emscripten в Twitter, информация о обновлениях Emscripten)
 
 
-Report a bug
-============
+Сообщить о ошибке
+=================
 
-:ref:`Bug reports <bug-reports>` can be posted in the GitHub `Issue Tracker <https://github.com/emscripten-core/emscripten/issues?state=open>`_.
+:ref:`Отчеты об ошибка <bug-reports>` могут быть отправлены через GitHub `Issue Tracker <https://github.com/emscripten-core/emscripten/issues?state=open>`_.
 
 
 .. _blogs:
 
 
-Blogs
+Блоги
 =====
 
-Get the latest official Emscripten news on the blogs: `Developer blog (azakai) <http://mozakai.blogspot.com/>`_ and `Mozilla blog <https://blog.mozilla.org/blog/tag/emscripten/>`_.
+Получить последние официальные новости можно в `блоге разработчика (azakai) <http://mozakai.blogspot.com/>`_ и `блоге Mozilla <https://blog.mozilla.org/blog/tag/emscripten/>`_.
 
-In addition, other interesting blogs and demos are regularly shared on Twitter by the development team `(@kripken) <https://twitter.com/kripken>`_ and the broader community `(#emscripten) <https://twitter.com/hashtag/emscripten>`_.
+В дополнение, другие интересные блоги и демо регулярно публикуются командой разработки в Twitter 
+`(@kripken) <https://twitter.com/kripken>`_ и сообществом `(#emscripten) <https://twitter.com/hashtag/emscripten>`_.
 
 .. todo :: **HamishW** At some point in future would be nice to actually display RSS feeds from above links here. Perhaps including @kripken in feed. In this case would need a dedicated blogs link as well.
 
 
-Contribute
-==========
+Внести свой вклад
+=================
 
-Anyone can contribute to Emscripten. We've got some ideas to get you started on our :ref:`contributing` page.
+Любой может внести свой вклад в Emscripten. Некоторые идеи с чего можно начать доступны на странице :ref:`contributing`.

@@ -1,17 +1,17 @@
 .. _emscripten-license:
 
-===================
-Open Source License
-===================
+================================
+Проект с открытым исходным кодом
+================================
 
-Emscripten is made available under two permissive open source licenses: the *MIT license* and the *University of Illinois/NCSA Open Source License*.
+Emscripten попадает по действие двух разрешающих лицензий: *лицензия MIT* и *University of Illinois/NCSA Open Source License*.
 
-There is little, if any, practical difference between the licenses. They are both offered because the:
+Используются две лицензии, потом что:
 
-- *MIT license* is well known and understood.
-- *University of Illinois/NCSA Open Source License* allows Emscripten's code to be integrated upstream into LLVM, should the opportunity arise.
+- *лицензия MIT* широко известна, и проста для понимая.
+- *University of Illinois/NCSA Open Source License* позволяет интегрировать код Emscripten в LLVM.
 
-The license for Emscripten |release| (|today|) is reproduced below. The `current full licence <https://github.com/emscripten-core/emscripten/blob/master/LICENSE>`_ can be found on GitHub (and is also present in the root of the SDK).
+Лицензия Emscripten |release| (|today|) приведена ниже. `Полная лецензия <https://github.com/emscripten-core/emscripten/blob/master/LICENSE>`_ может быть найдена на can GitHub (может быть найдена в корне SDK).
 
 .. include:: ../../../../LICENSE
    :literal:

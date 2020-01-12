@@ -1,65 +1,63 @@
 .. _sdk-download-and-install:
 
 ====================
-Download and install
+Загрузка и установка
 ====================
 
-.. note:: You can also :ref:`build Emscripten from source <installing-from-source>` if you prefer that to downloading binaries using the emsdk.
+.. note:: Вы можете так же :ref:`собрать Emscripten из исходников<installing-from-source>`, если вы предпочитаете это бинарным сборкам из emsdk. 
 
-.. note:: There are additional ways to install Emscripten than the instructions
-    below, for example, using brew on MacOS, the package manager on your linux
-    distro, or a Docker image, etc. However, the emsdk is the only officially
-    supported way to use Emscripten that is supported by the Emscripten
-    project, and the only one that we constantly test
-    (`emsdk CI <https://github.com/emscripten-core/emsdk/blob/master/.circleci/config.yml>`_,
+.. note:: Есть несколько дополнительных путей установки Emscripten, отличных от приведенных ниже.
+    Например с использованием brew на MacOS, пакетного менеджера linux, или c помощью Docker. 
+    Тем не менее, emsdk единственный оффициально поддерживаем способ использования Emscripten, 
+    и только он подвережен постоянному тестированию (
+    `emsdk CI <https://github.com/emscripten-core/emsdk/blob/master/.circleci/config.yml>`_,
     `Emscripten GitHub CI <https://github.com/emscripten-core/emscripten/blob/master/.circleci/config.yml>`_,
-    `Chromium CI <https://ci.chromium.org/p/emscripten-releases>`_). (While we
-    don't officially support other ways of getting Emscripten, we definitely
-    appreciate the efforts by third parties to
-    `package Emscripten <https://github.com/emscripten-core/emscripten/blob/incoming/docs/process.md#packaging-emscripten>`_
-    for users' convenience, and we'd like to help out, please get in touch if
-    you are such a packager!)
+    `Chromium CI <https://ci.chromium.org/p/emscripten-releases>`_). (Пока мы оффициально не поддерживаем
+    другие способы получения Emscripten, мы определенно благодарны сторонним разработчикам
+    `пакетов Emscripten <https://github.com/emscripten-core/emscripten/blob/incoming/docs/process.md#packaging-emscripten>`_
+    и мы готовы помогать, пожалуйста будьте на связи если вы собираете пакет Emscripten!)
 
 .. _sdk-installation-instructions:
 
-Installation instructions
-=========================
+Установка
+=========
 
-First check the :ref:`Platform-specific notes <platform-notes-installation_instructions-SDK>` below and install any prerequisites.
+Прежде всего прочтите :ref:`Платформо-зависимую информацию <platform-notes-installation_instructions-SDK>` ниже и установите необходимые библиотеки.
 
-The core Emscripten SDK (emsdk) driver is a Python script. You can get it for the first time with
+Ядро Emscripten SDK (emsdk) это Python скрипт. Вы можете получить его с помощью
 
   ::
 
-    # Get the emsdk repo
+    # Получить emsdk репозиторий 
     git clone https://github.com/emscripten-core/emsdk.git
 
-    # Enter that directory
+    # Перейти в директорию 
     cd emsdk
 
-.. note:: You can also get the emsdk without git, by selecting "Clone or download => Download ZIP" on the `emsdk GitHub page <https://github.com/emscripten-core/emsdk>`_.
+.. note:: Вы так же можете получить emsdk не используя git, используя кнопку "Clone or download => Download ZIP" на `странице emsdk GitHub <https://github.com/emscripten-core/emsdk>`_.
 
-Run the following :ref:`emsdk <emsdk>` commands to get the latest tools from GitHub and set them as :term:`active <Active Tool/SDK>`:
+Выполните следующие команды :ref:`emsdk <emsdk>` что бы загрузить последний инструментарий и установить его в качестве :term:`активного <Active Tool/SDK>`:
 
   ::
 
-    # Fetch the latest version of the emsdk (not needed the first time you clone)
+    # Загрузить последнию версию emsdk (не нужно если вы только что склонировали репозиторий)
     git pull
 
-    # Download and install the latest SDK tools.
+    # Скачать и установить последний инструментарий SDK.
     ./emsdk install latest
 
     # Make the "latest" SDK "active" for the current user. (writes ~/.emscripten file)
+    # Установить "последний" SDK как "активный" для текущего пользователя (записывает ~/.emscripten файл)
     ./emsdk activate latest
 
-    # Activate PATH and other environment variables in the current terminal
+    # Активирует переменные окружения PATH и длруги для текущего теримнала
     source ./emsdk_env.sh
 
-  .. note:: On Windows, run ``emsdk`` instead of ``./emsdk``, and ``emsdk_env.bat`` instead of ``source ./emsdk_env.sh``.
+  .. note:: На Windows, используйте ``emsdk`` вместо ``./emsdk``, и ``emsdk_env.bat`` вместо ``source ./emsdk_env.sh``.
 
-  .. note:: ``git pull`` will fetch the current list of tags, but very recent ones may not yet be present there. You can run ``./emsdk update-tags`` to update the list of tags directly.
+  .. note:: ``git pull`` загрузит текущий список версий, но самые свежие версии могут отствовать. Вы можете запустить ``./emsdk update-tags`` что бы обновить список версий напрямую. 
 
-If you change the location of the SDK (e.g. take it to another computer on an USB), re-run the ``./emsdk activate latest`` and ``source ./emsdk_env.sh`` commands.
+Если вы измените место нахождения SDK (например, возьмете с собой на другой компьютер на флэш накопителе), перезапустите команды ``./emsdk activate latest`` и ``source ./emsdk_env.sh``. 
 
 Emsdk install targets
 ---------------------

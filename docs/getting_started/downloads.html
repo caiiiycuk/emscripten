@@ -114,13 +114,13 @@
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">С чего начать</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Загрузка и установка</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#sdk-installation-instructions">Установка</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#emsdk-install-targets">Emsdk install targets</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#platform-specific-notes">Platform-specific notes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#emsdk">Emsdk варианты устновки</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#platform-notes-installation-instructions-sdk">Платформо-зависимая информация</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#verifying-the-installation">Verifying the installation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#updating-the-sdk">Updating the SDK</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#uninstalling-the-emscripten-sdk">Uninstalling the Emscripten SDK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id9">Проверка установленной версии</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sdk">Обновление SDK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#emscripten-sdk">Удаление инструментов Emscripten SDK</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="Tutorial.html">Emscripten Tutorial</a><ul>
@@ -1157,10 +1157,10 @@
 </div>
 </div></blockquote>
 <p>Если вы измените место нахождения SDK (например, возьмете с собой на другой компьютер на флэш накопителе), перезапустите команды <code class="docutils literal notranslate"><span class="pre">./emsdk</span> <span class="pre">activate</span> <span class="pre">latest</span></code> и <code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">./emsdk_env.sh</span></code>.</p>
-<div class="section" id="emsdk-install-targets">
-<h3>Emsdk install targets<a class="headerlink" href="#emsdk-install-targets" title="Permalink to this headline">¶</a></h3>
-<p>In the description above we asked the emsdk to install and activate <code class="docutils literal notranslate"><span class="pre">latest</span></code>, which is the latest tagged release. That is often what you want.</p>
-<p>You can also install a specific version by specifying it, for example,</p>
+<div class="section" id="emsdk">
+<h3>Emsdk варианты устновки<a class="headerlink" href="#emsdk" title="Permalink to this headline">¶</a></h3>
+<p>В инструкции выше, мы использовали emsdk для установки и активации <code class="docutils literal notranslate"><span class="pre">latest</span></code> версии, которая является последней выпущенной версией. Чаще всего это то что вам нужно.</p>
+<p>Однако, вы можете установить определенную версию указав её, например,</p>
 <blockquote>
 <div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">emsdk</span> <span class="n">install</span> <span class="mf">1.38</span><span class="o">.</span><span class="mi">45</span>
 </pre></div>
@@ -1168,73 +1168,73 @@
 </div></blockquote>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">When installing old versions from before the build infrastructure rewrite (anything before <code class="docutils literal notranslate"><span class="pre">1.38.33</span></code>), you need to write something like <code class="docutils literal notranslate"><span class="pre">./emsdk</span> <span class="pre">install</span> <span class="pre">sdk-1.38.20-64bit</span></code> (add <code class="docutils literal notranslate"><span class="pre">sdk-</span></code> and <code class="docutils literal notranslate"><span class="pre">-64bit</span></code>) as that was the naming convention at the time.</p>
+<p class="last">Когда устанавливаются версии выпущенные до выпуска актуальной системы сборки (версии старше <code class="docutils literal notranslate"><span class="pre">1.38.33</span></code>), необходимо испозовать <code class="docutils literal notranslate"><span class="pre">./emsdk</span> <span class="pre">install</span> <span class="pre">sdk-1.38.20-64bit</span></code> (добавьте <code class="docutils literal notranslate"><span class="pre">sdk-</span></code> и <code class="docutils literal notranslate"><span class="pre">-64bit</span></code>) таковы текущие соглашения по установке старых версий.</p>
 </div>
-<p>You can also specify which backend you want to use, either <code class="docutils literal notranslate"><span class="pre">fastcomp</span></code> or <code class="docutils literal notranslate"><span class="pre">upstream</span></code> (without specifying the backend, the current default is used), for example,</p>
+<p>Вы можете выбирать между <code class="docutils literal notranslate"><span class="pre">fastcomp</span></code> и <code class="docutils literal notranslate"><span class="pre">upstream</span></code> реализацией (без явного указания будет использоваться реализация по умолчанию),</p>
 <blockquote>
-<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get a specific version using the upstream backend.</span>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Использовать upstream</span>
 <span class="o">./</span><span class="n">emsdk</span> <span class="n">install</span> <span class="n">latest</span><span class="o">-</span><span class="n">upstream</span>
 
-<span class="c1"># Get a specific version using the fastcomp backend.</span>
+<span class="c1"># Использовать fastcomp</span>
 <span class="o">./</span><span class="n">emsdk</span> <span class="n">install</span> <span class="mf">1.38</span><span class="o">.</span><span class="mi">45</span><span class="o">-</span><span class="n">fastcomp</span>
 </pre></div>
 </div>
 </div></blockquote>
-<p>There are also “tip-of-tree builds”, which are the very latest code that passes integration tests on <a class="reference external" href="https://ci.chromium.org/p/emscripten-releases">Chromium CI</a>. This is updated much more frequently than tagged releases, but may be less stable (we <a class="reference external" href="https://github.com/emscripten-core/emscripten/blob/incoming/docs/process.md#minor-version-updates-1xy-to-1xy1">tag releases manually</a> using a more careful procedure). Tip-of-tree builds may be useful for continuous integration that uses the emsdk (as Emscripten’s GitHub CI does), and you may want to use it in your own CI as well, so that if you find a regression on your project you can report it and prevent it from reaching a tagged release. Tip-of-builds may also be useful if you want to test a feature that just landed but didn’t reach a release yet. To use a tip-of-tree build, use the <code class="docutils literal notranslate"><span class="pre">tot</span></code> target, and note that you must specify the backend explicitly,</p>
+<p>Кроме того, можно использовать “tip-of-tree” сборку, которая основана на самом последнем коде который прошел интеграционные тесты <a class="reference external" href="https://ci.chromium.org/p/emscripten-releases">Chromium CI</a>. Она обновляется гораздо чаще чем выпуски версий, но может быть менее стабильной (<a class="reference external" href="https://github.com/emscripten-core/emscripten/blob/incoming/docs/process.md#minor-version-updates-1xy-to-1xy1">версии выпускаются вручную</a> и проверяются более тщательно). Такие сборки могут быть полезны при использовании непрерывной интеграции на базе emsdk (например, как Emscripten’s GitHub CI), Вы так же можете захотеть использовать их в Вашем CI, таким образом, если вы обнаружите регрессию в Вашем проекте, то Вы можете сообщить об этом остановив выпуск текущей версии. Возможно, Вы захотите использовать эту сборку что бы проверить новую функцию, которая только появилась и ещё не была выпущена. Что бы использовать сборку “tip-of-tree” укажите <code class="docutils literal notranslate"><span class="pre">tot</span></code> в качестве цели,</p>
 <blockquote>
-<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get a tip-of-tree using the upstream backend.</span>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Получить tip-of-tree upstream сборку.</span>
 <span class="o">./</span><span class="n">emsdk</span> <span class="n">install</span> <span class="n">tot</span><span class="o">-</span><span class="n">upstream</span>
 
-<span class="c1"># Get a tip-of-tree using the fastcomp backend.</span>
+<span class="c1"># Получить tip-of-tree fastcomp сборку.</span>
 <span class="o">./</span><span class="n">emsdk</span> <span class="n">install</span> <span class="n">tot</span><span class="o">-</span><span class="n">fastcomp</span>
 </pre></div>
 </div>
 </div></blockquote>
-<p>(In the above examples we installed the various targets; remember to also <code class="docutils literal notranslate"><span class="pre">activate</span></code> them as in the full example from earlier.)</p>
+<p>(В примере выше устанавливается множество вариантов сборок; не забудьте так же <code class="docutils literal notranslate"><span class="pre">активировать</span> <span class="pre">(activate)</span></code> их, как в полном примере выше.)</p>
 </div>
-<div class="section" id="platform-specific-notes">
-<span id="platform-notes-installation-instructions-sdk"></span><h3>Platform-specific notes<a class="headerlink" href="#platform-specific-notes" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="platform-notes-installation-instructions-sdk">
+<span id="id5"></span><h3>Платформо-зависимая информация<a class="headerlink" href="#platform-notes-installation-instructions-sdk" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="windows">
 <h4>Windows<a class="headerlink" href="#windows" title="Permalink to this headline">¶</a></h4>
 <ol class="arabic simple">
-<li>Install Python 2.7.12 or newer (older versions may not work due to <a class="reference external" href="https://github.com/emscripten-core/emscripten/issues/6275">a GitHub change with SSL</a>).</li>
+<li>Установите Python 2.7.12 или новее (старшие версии могут не работать из за <a class="reference external" href="https://github.com/emscripten-core/emscripten/issues/6275">GitHub change with SSL</a>).</li>
 </ol>
 <blockquote>
 <div><div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">Instead of running emscripten on Windows directly, you can use the Windows Subsystem for Linux to run it in a Linux environment.</p>
+<p class="last">Вместо того что бы запускать emscripten напрямую в Windows, Вы можете использовать Windows Subsystem for Linux для запуска его в Linux окружении.</p>
 </div>
 </div></blockquote>
 </div>
 <div class="section" id="macos">
 <h4>macOS<a class="headerlink" href="#macos" title="Permalink to this headline">¶</a></h4>
-<p>If you use MacOS 10.13.3 or later then you should have a new enough version of Python installed (older versions may not work due to <a class="reference external" href="https://github.com/emscripten-core/emscripten/issues/6275">a GitHub change with SSL</a>). Otherwise you can manually install and use Python 2.7.12 or newer.</p>
-<p>These instructions explain how to install <strong>all</strong> the <a class="reference internal" href="../building_from_source/toolchain_what_is_needed.html#toolchain-what-you-need"><span class="std std-ref">required tools</span></a>. You can <a class="reference internal" href="../building_from_source/toolchain_what_is_needed.html#toolchain-test-which-dependencies-are-installed"><span class="std std-ref">test whether some of these are already installed</span></a> on the platform and skip those steps.</p>
+<p>Если вы используете MacOS 10.13.3 или старше, тогда Ваша версия Python должна подойти (более старые версии могут не работать из за <a class="reference external" href="https://github.com/emscripten-core/emscripten/issues/6275">GitHub change with SSL</a>). Иначе, установите Python 2.7.12 или новее.</p>
+<p>Эти инструкции объясняют как установить <strong>все</strong> <a class="reference internal" href="../building_from_source/toolchain_what_is_needed.html#toolchain-what-you-need"><span class="std std-ref">необходимые инструменты</span></a>. Вы можете <a class="reference internal" href="../building_from_source/toolchain_what_is_needed.html#toolchain-test-which-dependencies-are-installed"><span class="std std-ref">проверить есть ли уже установленные инструменты</span></a> и пропустить соответствующие шаги.</p>
 <ol class="arabic simple">
-<li>Install the <em>Xcode Command Line Tools</em>. These are a precondition for <em>git</em>.</li>
+<li>Установите <em>Xcode Command Line Tools</em>. Это необходимо для <em>git</em>.</li>
 </ol>
 <blockquote>
 <div><ul class="simple">
-<li>Install Xcode from the <a class="reference external" href="http://superuser.com/questions/455214/where-is-svn-on-os-x-mountain-lion">macOS App Store</a>.</li>
-<li>In <strong>Xcode | Preferences | Downloads</strong>, install <em>Command Line Tools</em>.</li>
+<li>Установите Xcode из <a class="reference external" href="http://superuser.com/questions/455214/where-is-svn-on-os-x-mountain-lion">магазина приложений macOS</a>.</li>
+<li>В <strong>Xcode | Preferences | Downloads</strong>, установите <em>Command Line Tools</em>.</li>
 </ul>
 </div></blockquote>
 <ol class="arabic simple">
-<li>Install <em>git</em>:</li>
+<li>Установите <em>git</em>:</li>
 </ol>
 <blockquote>
 <div><ul class="simple">
-<li><a class="reference external" href="https://support.apple.com/en-gb/HT202491">Make sure the OS allows installing git</a>.</li>
-<li>Install Xcode and the Xcode Command Line Tools (should already have been done). This will provide <em>git</em> to the system PATH (see <a class="reference external" href="http://stackoverflow.com/questions/9329243/xcode-4-4-command-line-tools">this stackoverflow post</a>).</li>
-<li>Download and install git directly from <a class="reference external" href="http://git-scm.com/">http://git-scm.com/</a>.</li>
+<li><a class="reference external" href="https://support.apple.com/en-gb/HT202491">Убедитесь что ОС позволяет установить git</a>.</li>
+<li>Установите Xcode и Xcode Command Line Tools (см. пункт выше). Таким образом <em>git</em> будет добавлен в PATH системы (см. <a class="reference external" href="http://stackoverflow.com/questions/9329243/xcode-4-4-command-line-tools">stackoverflow</a>).</li>
+<li>Скачайте и установите напрямую с <a class="reference external" href="http://git-scm.com/">http://git-scm.com/</a>.</li>
 </ul>
 </div></blockquote>
 <ol class="arabic simple">
-<li>Install <em>cmake</em> if you do not have it yet:</li>
+<li>Установите <em>cmake</em>:</li>
 </ol>
 <blockquote>
 <div><ul class="simple">
-<li>Download and install latest CMake from <a class="reference external" href="http://www.cmake.org/download/">Kitware CMake downloads</a>.</li>
+<li>Скачайте и установите последний CMake с <a class="reference external" href="http://www.cmake.org/download/">Kitware CMake downloads</a>.</li>
 </ul>
 </div></blockquote>
 </div>
@@ -1242,17 +1242,17 @@
 <span id="getting-started-on-macos-install-python2"></span><h4>Linux<a class="headerlink" href="#linux" title="Permalink to this headline">¶</a></h4>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last"><em>Emsdk</em> does not install any tools to the system, or otherwise interact with Linux package managers. All file changes are done inside the <strong>emsdk/</strong> directory.</p>
+<p class="last"><em>Emsdk</em> не устанавливает новых инструментов в систему, и не взаимодествует с поакетными менеджерами Linux. Вместо этого все изменения происходя в директории <strong>emsdk/</strong>.</p>
 </div>
 <ul>
-<li><p class="first"><em>Python</em>, <em>CMake</em>, and <em>Java</em> are not provided by <em>emsdk</em>. The user is expected to install these beforehand with the <em>system package manager</em>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Install Python</span>
+<li><p class="first"><em>Python</em>, <em>CMake</em>, и <em>Java</em> не предоставляются <em>emsdk</em>. Пользователь должен установить их самостоятельно с помощью <strong>пакетного менеджера системы</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Установить Python</span>
 <span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">python2</span><span class="o">.</span><span class="mi">7</span>
 
-<span class="c1"># Install CMake (optional, only needed for tests and building Binaryen)</span>
+<span class="c1"># Установить CMake (не обязательно, необходимо для тестирования и сборки Binaryen)</span>
 <span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">cmake</span>
 
-<span class="c1"># Install Java (optional, only needed for Closure Compiler minification)</span>
+<span class="c1"># Установите Java (не обязательно, необходимо для использования Closure Compiler)</span>
 <span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">default</span><span class="o">-</span><span class="n">jre</span>
 </pre></div>
 </div>
@@ -1260,15 +1260,15 @@
 </ul>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">You need Python 2.7.12 or newer because older versions may not work due to <a class="reference external" href="https://github.com/emscripten-core/emscripten/issues/6275">a GitHub change with SSL</a>).</p>
+<p class="last">Вам нужен Python 2.7.12 или новее, потому что более старые весрии могут не работаь из за <a class="reference external" href="https://github.com/emscripten-core/emscripten/issues/6275">GitHub change with SSL</a>).</p>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">If you want to use your system’s Node.js instead of the emsdk’s, it may be <code class="docutils literal notranslate"><span class="pre">node</span></code> instead of <code class="docutils literal notranslate"><span class="pre">nodejs</span></code>, and you can adjust the <code class="docutils literal notranslate"><span class="pre">NODE_JS</span></code> attribute of your <code class="docutils literal notranslate"><span class="pre">~/.emscripten</span></code> file to point to it.</p>
+<p class="last">Если вы хотите использовать систменую весрию Node.js вместо версии из emsdk, то вам нужно задать <code class="docutils literal notranslate"><span class="pre">NODE_JS</span></code> атрибут в файле <code class="docutils literal notranslate"><span class="pre">~/.emscripten</span></code> указывающим на системную версию.</p>
 </div>
 <ul>
-<li><p class="first"><em>Git</em> is not installed automatically. Git is only needed if you want to use tools from one of the development branches <strong>emscripten-incoming</strong> or <strong>emscripten-master</strong>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Install git</span>
+<li><p class="first"><em>Git</em> не устанавливается автоматически. Git нужен только в случае если вы хотите использовать инструменты из разрабатываемых веток <strong>emscripten-incoming</strong> или <strong>emscripten-master</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Установить git</span>
 <span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">git</span><span class="o">-</span><span class="n">core</span>
 </pre></div>
 </div>
@@ -1277,37 +1277,37 @@
 </div>
 </div>
 </div>
-<div class="section" id="verifying-the-installation">
-<h2>Verifying the installation<a class="headerlink" href="#verifying-the-installation" title="Permalink to this headline">¶</a></h2>
-<p>The easiest way to verify the installation is to compile some code using Emscripten.</p>
-<p>You can jump ahead to the <a class="reference internal" href="Tutorial.html#tutorial"><span class="std std-ref">Emscripten Tutorial</span></a>, but if you have any problems building you should run through the basic tests and troubleshooting instructions in <a class="reference internal" href="../building_from_source/verify_emscripten_environment.html#verifying-the-emscripten-environment"><span class="std std-ref">Verifying the Emscripten Development Environment</span></a>.</p>
+<div class="section" id="id9">
+<h2>Проверка установленной версии<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<p>Самый простой способ проверить установленную версию, - скомпилировать код с Emscripten.</p>
+<p>Вы можете перейти в раздел <a class="reference internal" href="Tutorial.html#tutorial"><span class="std std-ref">Emscripten Tutorial</span></a>, но если у вас возникнут какие-то проблемы или трудности, то следует запустить базовые тесты и прочесть решение проблем в <a class="reference internal" href="../building_from_source/verify_emscripten_environment.html#verifying-the-emscripten-environment"><span class="std std-ref">Verifying the Emscripten Development Environment</span></a>.</p>
 </div>
-<div class="section" id="updating-the-sdk">
-<span id="updating-the-emscripten-sdk"></span><h2>Updating the SDK<a class="headerlink" href="#updating-the-sdk" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="sdk">
+<span id="updating-the-emscripten-sdk"></span><h2>Обновление SDK<a class="headerlink" href="#sdk" title="Permalink to this headline">¶</a></h2>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
-<p class="last">You only need to install the SDK once! After that you can update to the latest SDK at any time using <a class="reference internal" href="../tools_reference/emsdk.html#emsdk"><span class="std std-ref">Emscripten SDK (emsdk)</span></a>.</p>
+<p class="last">Устанавилвать SDK необходио единожды! После этого Вы можете обновлять версию SDK в любой момент:ref:<cite>Emscripten SDK (emsdk) &lt;emsdk&gt;</cite>.</p>
 </div>
-<p>Type the following in a command prompt</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Fetch the latest registry of available tools.</span>
+<p>Используйте следующие команды</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Получить реестр доступных инструментов.</span>
 <span class="o">./</span><span class="n">emsdk</span> <span class="n">update</span>
 
-<span class="c1"># Download and install the latest SDK tools.</span>
+<span class="c1"># Скачать и устновить последние инструменты SDK.</span>
 <span class="o">./</span><span class="n">emsdk</span> <span class="n">install</span> <span class="n">latest</span>
 
-<span class="c1"># Set up the compiler configuration to point to the &quot;latest&quot; SDK.</span>
+<span class="c1"># Установить конфигурацию компилятора на &quot;latest&quot; SDK.</span>
 <span class="o">./</span><span class="n">emsdk</span> <span class="n">activate</span> <span class="n">latest</span>
 
-<span class="c1"># Activate PATH and other environment variables in the current terminal</span>
+<span class="c1"># Изменить переменные окружения и PATH в текущем терминале.</span>
 <span class="n">source</span> <span class="o">./</span><span class="n">emsdk_env</span><span class="o">.</span><span class="n">sh</span>
 </pre></div>
 </div>
-<p>The package manager can do many other maintenance tasks ranging from fetching specific old versions of the SDK through to using the <a class="reference internal" href="../tools_reference/emsdk.html#emsdk-master-or-incoming-sdk"><span class="std std-ref">versions of the tools on GitHub</span></a> (or even your own fork). Check out all the possibilities in the <a class="reference internal" href="../tools_reference/emsdk.html#emsdk-howto"><span class="std std-ref">“How to” guides</span></a>.</p>
+<p>Пакетный менеджер может делать множество других задач от загрузки указанных старых версий, до установки <a class="reference internal" href="../tools_reference/emsdk.html#emsdk-master-or-incoming-sdk"><span class="std std-ref">инструментов из репозитория GitHub</span></a> (или даже из вашего форка). Узнайте больше из раздела <a class="reference internal" href="../tools_reference/emsdk.html#emsdk-howto"><span class="std std-ref">“How to” guides</span></a>.</p>
 </div>
-<div class="section" id="uninstalling-the-emscripten-sdk">
-<span id="downloads-uninstall-the-sdk"></span><h2>Uninstalling the Emscripten SDK<a class="headerlink" href="#uninstalling-the-emscripten-sdk" title="Permalink to this headline">¶</a></h2>
-<p>If you want to remove the whole SDK, just delete the directory containing the SDK.</p>
-<p>It is also possible to <a class="reference internal" href="../tools_reference/emsdk.html#emsdk-remove-tool-sdk"><span class="std std-ref">remove specific tools in the SDK using emsdk</span></a>.</p>
+<div class="section" id="emscripten-sdk">
+<span id="downloads-uninstall-the-sdk"></span><h2>Удаление инструментов Emscripten SDK<a class="headerlink" href="#emscripten-sdk" title="Permalink to this headline">¶</a></h2>
+<p>Если вы хотите удалить полностью SDK, просто удалите директорию его содержащею.</p>
+<p>Так же можно <a class="reference internal" href="../tools_reference/emsdk.html#emsdk-remove-tool-sdk"><span class="std std-ref">удалить определенную утилиту в составе SDK</span></a>.</p>
 </div>
 </div>
 

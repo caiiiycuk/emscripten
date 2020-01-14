@@ -59,145 +59,145 @@
 
 Если вы измените место нахождения SDK (например, возьмете с собой на другой компьютер на флэш накопителе), перезапустите команды ``./emsdk activate latest`` и ``source ./emsdk_env.sh``. 
 
-Emsdk install targets
----------------------
+Emsdk варианты устновки 
+-----------------------
 
-In the description above we asked the emsdk to install and activate ``latest``, which is the latest tagged release. That is often what you want.
+В инструкции выше, мы использовали emsdk для установки и активации ``latest`` версии, которая является последней выпущенной версией. Чаще всего это то что вам нужно.
 
-You can also install a specific version by specifying it, for example,
+Однако, вы можете установить определенную версию указав её, например,
 
   ::
 
     ./emsdk install 1.38.45
 
 
-.. note:: When installing old versions from before the build infrastructure rewrite (anything before ``1.38.33``), you need to write something like ``./emsdk install sdk-1.38.20-64bit`` (add ``sdk-`` and ``-64bit``) as that was the naming convention at the time.
+.. note:: Когда устанавливаются версии выпущенные до выпуска актуальной системы сборки (версии старше ``1.38.33``), необходимо испозовать ``./emsdk install sdk-1.38.20-64bit`` (добавьте ``sdk-`` и ``-64bit``) таковы текущие соглашения по установке старых версий.
 
-You can also specify which backend you want to use, either ``fastcomp`` or ``upstream`` (without specifying the backend, the current default is used), for example,
+Вы можете выбирать между ``fastcomp`` и ``upstream`` реализацией (без явного указания будет использоваться реализация по умолчанию),
 
   ::
 
-    # Get a specific version using the upstream backend.
+    # Использовать upstream 
     ./emsdk install latest-upstream
 
-    # Get a specific version using the fastcomp backend.
+    # Использовать fastcomp 
     ./emsdk install 1.38.45-fastcomp
 
 
-There are also "tip-of-tree builds", which are the very latest code that passes integration tests on `Chromium CI <https://ci.chromium.org/p/emscripten-releases>`_. This is updated much more frequently than tagged releases, but may be less stable (we `tag releases manually <https://github.com/emscripten-core/emscripten/blob/incoming/docs/process.md#minor-version-updates-1xy-to-1xy1>`_ using a more careful procedure). Tip-of-tree builds may be useful for continuous integration that uses the emsdk (as Emscripten's GitHub CI does), and you may want to use it in your own CI as well, so that if you find a regression on your project you can report it and prevent it from reaching a tagged release. Tip-of-builds may also be useful if you want to test a feature that just landed but didn't reach a release yet. To use a tip-of-tree build, use the ``tot`` target, and note that you must specify the backend explicitly,
+Кроме того, можно использовать "tip-of-tree" сборку, которая основана на самом последнем коде который прошел интеграционные тесты `Chromium CI <https://ci.chromium.org/p/emscripten-releases>`_. Она обновляется гораздо чаще чем выпуски версий, но может быть менее стабильной (`версии выпускаются вручную <https://github.com/emscripten-core/emscripten/blob/incoming/docs/process.md#minor-version-updates-1xy-to-1xy1>`_ и проверяются более тщательно). Такие сборки могут быть полезны при использовании непрерывной интеграции на базе emsdk (например, как Emscripten's GitHub CI), Вы так же можете захотеть использовать их в Вашем CI, таким образом, если вы обнаружите регрессию в Вашем проекте, то Вы можете сообщить об этом остановив выпуск текущей версии. Возможно, Вы захотите использовать эту сборку что бы проверить новую функцию, которая только появилась и ещё не была выпущена. Что бы использовать сборку "tip-of-tree" укажите ``tot`` в качестве цели,
 
   ::
 
-    # Get a tip-of-tree using the upstream backend.
+    # Получить tip-of-tree upstream сборку.
     ./emsdk install tot-upstream
 
-    # Get a tip-of-tree using the fastcomp backend.
+    # Получить tip-of-tree fastcomp сборку.
     ./emsdk install tot-fastcomp
 
-(In the above examples we installed the various targets; remember to also ``activate`` them as in the full example from earlier.)
+(В примере выше устанавливается множество вариантов сборок; не забудьте так же ``активировать (activate)`` их, как в полном примере выше.)
 
 .. _platform-notes-installation_instructions-SDK:
 
-Platform-specific notes
-----------------------------
+Платформо-зависимая информация
+------------------------------
 
 Windows
 +++++++
 
-#. Install Python 2.7.12 or newer (older versions may not work due to `a GitHub change with SSL <https://github.com/emscripten-core/emscripten/issues/6275>`_).
+#. Установите Python 2.7.12 или новее (старшие версии могут не работать из за `GitHub change with SSL <https://github.com/emscripten-core/emscripten/issues/6275>`_).
 
-  .. note:: Instead of running emscripten on Windows directly, you can use the Windows Subsystem for Linux to run it in a Linux environment.
+  .. note:: Вместо того что бы запускать emscripten напрямую в Windows, Вы можете использовать Windows Subsystem for Linux для запуска его в Linux окружении.
 
 macOS
 +++++
 
-If you use MacOS 10.13.3 or later then you should have a new enough version of Python installed (older versions may not work due to `a GitHub change with SSL <https://github.com/emscripten-core/emscripten/issues/6275>`_). Otherwise you can manually install and use Python 2.7.12 or newer.
+Если вы используете MacOS 10.13.3 или старше, тогда Ваша версия Python должна подойти (более старые версии могут не работать из за `GitHub change with SSL <https://github.com/emscripten-core/emscripten/issues/6275>`_). Иначе, установите Python 2.7.12 или новее.
 
-These instructions explain how to install **all** the :ref:`required tools <toolchain-what-you-need>`. You can :ref:`test whether some of these are already installed <toolchain-test-which-dependencies-are-installed>` on the platform and skip those steps.
+Эти инструкции объясняют как установить **все** :ref:`необходимые инструменты <toolchain-what-you-need>`. Вы можете :ref:`проверить есть ли уже установленные инструменты <toolchain-test-which-dependencies-are-installed>` и пропустить соответствующие шаги.
 
-#. Install the *Xcode Command Line Tools*. These are a precondition for *git*.
+#. Установите *Xcode Command Line Tools*. Это необходимо для *git*.
 
-  -  Install Xcode from the `macOS App Store <http://superuser.com/questions/455214/where-is-svn-on-os-x-mountain-lion>`_.
-  -  In **Xcode | Preferences | Downloads**, install *Command Line Tools*.
+  -  Установите Xcode из `магазина приложений macOS <http://superuser.com/questions/455214/where-is-svn-on-os-x-mountain-lion>`_.
+  -  В **Xcode | Preferences | Downloads**, установите *Command Line Tools*.
 
-#. Install *git*:
+#. Установите *git*:
 
-  - `Make sure the OS allows installing git <https://support.apple.com/en-gb/HT202491>`_.
-  - Install Xcode and the Xcode Command Line Tools (should already have been done). This will provide *git* to the system PATH (see `this stackoverflow post <http://stackoverflow.com/questions/9329243/xcode-4-4-command-line-tools>`_).
-  - Download and install git directly from http://git-scm.com/.
+  - `Убедитесь что ОС позволяет установить git <https://support.apple.com/en-gb/HT202491>`_.
+  - Установите Xcode и Xcode Command Line Tools (см. пункт выше). Таким образом *git* будет добавлен в PATH системы (см. `stackoverflow <http://stackoverflow.com/questions/9329243/xcode-4-4-command-line-tools>`_).
+  - Скачайте и установите напрямую с http://git-scm.com/.
 
-#. Install *cmake* if you do not have it yet:
+#. Установите *cmake*:
 
-  -  Download and install latest CMake from `Kitware CMake downloads <http://www.cmake.org/download/>`_.
+  -  Скачайте и установите последний CMake с `Kitware CMake downloads <http://www.cmake.org/download/>`_.
 
   .. _getting-started-on-macos-install-python2:
 
 Linux
 ++++++++
 
-.. note:: *Emsdk* does not install any tools to the system, or otherwise interact with Linux package managers. All file changes are done inside the **emsdk/** directory.
+.. note:: *Emsdk* не устанавливает новых инструментов в систему, и не взаимодествует с поакетными менеджерами Linux. Вместо этого все изменения происходя в директории **emsdk/**.
 
-- *Python*, *CMake*, and *Java* are not provided by *emsdk*. The user is expected to install these beforehand with the *system package manager*:
+- *Python*, *CMake*, и *Java* не предоставляются *emsdk*. Пользователь должен установить их самостоятельно с помощью **пакетного менеджера системы**:
 
   ::
 
-    # Install Python
+    # Установить Python
     sudo apt-get install python2.7
 
-    # Install CMake (optional, only needed for tests and building Binaryen)
+    # Установить CMake (не обязательно, необходимо для тестирования и сборки Binaryen)
     sudo apt-get install cmake
 
-    # Install Java (optional, only needed for Closure Compiler minification)
+    # Установите Java (не обязательно, необходимо для использования Closure Compiler)
     sudo apt-get install default-jre
 
-.. note:: You need Python 2.7.12 or newer because older versions may not work due to `a GitHub change with SSL <https://github.com/emscripten-core/emscripten/issues/6275>`_).
+.. note:: Вам нужен Python 2.7.12 или новее, потому что более старые весрии могут не работаь из за `GitHub change with SSL <https://github.com/emscripten-core/emscripten/issues/6275>`_).
 
-.. note:: If you want to use your system's Node.js instead of the emsdk's, it may be ``node`` instead of ``nodejs``, and you can adjust the ``NODE_JS`` attribute of your ``~/.emscripten`` file to point to it.
+.. note:: Если вы хотите использовать систменую весрию Node.js вместо версии из emsdk, то вам нужно задать ``NODE_JS`` атрибут в файле ``~/.emscripten`` указывающим на системную версию. 
 
-- *Git* is not installed automatically. Git is only needed if you want to use tools from one of the development branches **emscripten-incoming** or **emscripten-master**:
+- *Git* не устанавливается автоматически. Git нужен только в случае если вы хотите использовать инструменты из разрабатываемых веток **emscripten-incoming** или **emscripten-master**:
 
   ::
 
-    # Install git
+    # Установить git
     sudo apt-get install git-core
 
 
-Verifying the installation
-==========================
+Проверка установленной версии
+=============================
 
-The easiest way to verify the installation is to compile some code using Emscripten.
+Самый простой способ проверить установленную версию, - скомпилировать код с Emscripten.
 
-You can jump ahead to the :ref:`Tutorial`, but if you have any problems building you should run through the basic tests and troubleshooting instructions in :ref:`verifying-the-emscripten-environment`.
+Вы можете перейти в раздел :ref:`Tutorial`, но если у вас возникнут какие-то проблемы или трудности, то следует запустить базовые тесты и прочесть решение проблем в :ref:`verifying-the-emscripten-environment`.
 
 
 .. _updating-the-emscripten-sdk:
 
-Updating the SDK
-================
+Обновление SDK
+==============
 
-.. tip:: You only need to install the SDK once! After that you can update to the latest SDK at any time using :ref:`Emscripten SDK (emsdk) <emsdk>`.
+.. tip:: Устанавилвать SDK необходио единожды! После этого Вы можете обновлять версию SDK в любой момент:ref:`Emscripten SDK (emsdk) <emsdk>`.
 
-Type the following in a command prompt ::
+Используйте следующие команды ::
 
-  # Fetch the latest registry of available tools.
+  # Получить реестр доступных инструментов.
   ./emsdk update
 
-  # Download and install the latest SDK tools.
+  # Скачать и устновить последние инструменты SDK.
   ./emsdk install latest
 
-  # Set up the compiler configuration to point to the "latest" SDK.
+  # Установить конфигурацию компилятора на "latest" SDK.
   ./emsdk activate latest
 
-  # Activate PATH and other environment variables in the current terminal
+  # Изменить переменные окружения и PATH в текущем терминале.
   source ./emsdk_env.sh
 
-The package manager can do many other maintenance tasks ranging from fetching specific old versions of the SDK through to using the :ref:`versions of the tools on GitHub <emsdk-master-or-incoming-sdk>` (or even your own fork). Check out all the possibilities in the :ref:`emsdk_howto`.
+Пакетный менеджер может делать множество других задач от загрузки указанных старых версий, до установки :ref:`инструментов из репозитория GitHub <emsdk-master-or-incoming-sdk>` (или даже из вашего форка). Узнайте больше из раздела :ref:`emsdk_howto`.
 
 .. _downloads-uninstall-the-sdk:
 
-Uninstalling the Emscripten SDK
-========================================================
+Удаление инструментов Emscripten SDK
+====================================
 
-If you want to remove the whole SDK, just delete the directory containing the SDK.
+Если вы хотите удалить полностью SDK, просто удалите директорию его содержащею.
 
-It is also possible to :ref:`remove specific tools in the SDK using emsdk <emsdk-remove-tool-sdk>`.
+Так же можно :ref:`удалить определенную утилиту в составе SDK <emsdk-remove-tool-sdk>`.

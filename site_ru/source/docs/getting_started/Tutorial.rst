@@ -1,90 +1,89 @@
 .. _Tutorial:
 
-===================
-Emscripten Tutorial
-===================
+========
+Обучение
+========
 
-**Using Emscripten is, at a base level, fairly simple. This tutorial takes you through the steps needed to compile your first Emscripten examples from the command line. It also shows how to work with files and set the main compiler optimization flags.**
+**Использовать Emscripten на базов уровне достаточно просто. Это обучение расскажет о необходимых шагах для компиляции первого проекта из комнадной строки. Кроме того, объяснит как работать с файлами и использовать оптимизационные флаги компиляции.**
 
-First things first
-======================
+Первым делом
+============
 
-Make sure you have :ref:`downloaded and installed <sdk-download-and-install>` Emscripten (the exact approach for doing this will depend your operating system: Linux, Windows, or Mac).
+Убедитесь что вы :ref:`скачали и установили <sdk-download-and-install>` Emscripten (способ установки зависит от операционной системы: Linux, Windows, or Mac).
 
-Emscripten is accessed using the :ref:`emccdoc`. This script invokes all the other tools needed to build your code, and can act as a drop-in replacement for a standard compiler like *gcc* or *clang*. It is called on the command line using ``./emcc`` or ``./em++``.
+Emscripten доступен с использованием :ref:`emccdoc`. Этот скрипт запускает все другие утилиты необходимые для сборки вашего кода, и функционирует как прямая замена стандартного компилятора *gcc* или *clang*. Его можно вызвать используя команды ``./emcc`` или ``./em++``.
 
-.. note:: On Windows the tool is called using the slightly different syntax: ``emcc`` or ``em++``. The remainder of this tutorial uses the Linux approach (``./emcc``).
+.. note:: В Windows используется другой синтаксис ``emcc`` или ``em++``. Остаток этого обучния использует Linux команды(``./emcc``).
 
-For the next section you will need to open a command prompt:
+В следующей главе вам потребуется открыть консоль:
 
-- On Linux or macOS, open a *Terminal*.
-- On Windows open the :ref:`Emscripten Command Prompt <emcmdprompt>`, a command prompt that has been pre-configured with the correct system paths and settings to point to the :term:`active <Active Tool/SDK>` Emscripten tools. To access this prompt, type **Emscripten** in the Windows 8 start screen, and then select the **Emscripten Command Prompt** option.
+- В  Linux или macOS, используйте *Terminal*.
+- В Windows запустите :ref:`Emscripten Command Prompt <emcmdprompt>`, этот терминал уже настроен на использование :term:`активного <Active Tool/SDK>` инструментария Emscripten. Для получение доступа к терминалу, наберите **Emscripten** в стартовом экране Windows 8, и выберите **Emscripten Command Prompt**.
 
-Navigate with the command prompt to the emscripten directory under the SDK. This is a folder below the :term:`emsdk root directory`, typically **<emsdk root directory>/fastcomp/emscripten/** (for the older "fastcomp" compiler; for the newer upstream LLVM wasm backend it will be **<emsdk root directory>/upstream/emscripten/**). The examples below will depend on finding files relative to that location.
+Откройте директорию emscripten внутри SDK. Эта директория находится в корневой директории emsdk (:term:`emsdk root directory`), обычно **<emsdk root directory>/fastcomp/emscripten/** (для "fastcomp" реализации; для новой реализации upstream - **<emsdk root directory>/upstream/emscripten/**). Примеры ниже, будут использовать файлы относительно этой директории.
 
-.. note:: In older emscripten versions the directory structure was different: the version number appeared, and the backend (fastcomp/upstream) did not, so you would use something like **<emsdk root directory>/emscripten/1.20.0/**.
+.. note:: В старых версиях emscripten стурктура каталогов другая: появляется номер версии, и исчезает реализация (fastcomp/upstream), т.е. каталог будет **<emsdk root directory>/emscripten/1.20.0/**.
 
+Проверка установленной версии
+=============================
 
-Verifying Emscripten
-=====================
-
-If you haven't run Emscripten before, run it now with: ::
+Если вы не делали это ранее, запустите: ::
 
     ./emcc -v
 
-If the output contains warnings about missing tools, see :ref:`verifying-the-emscripten-environment` for debugging help. Otherwise continue to the next sections where we'll build some code.
+Вывод может содержать предупреждения об отсутствии некоторых инструментов, см. :ref:`verifying-the-emscripten-environment` за помощью. Иначе, можете переходить к следующей секции, для сборки проекта.
 
 
-Running Emscripten
-==================
+Запуск Emscripten
+=================
 
-You can now compile your first C/C++ file to JavaScript.
+Теперь вы можете скомпилировать первый C/C++ файл в JavaScript.
 
-First, lets have a look at the file to be compiled: **hello_world.c**. This is the simplest test code in the SDK, and as you can see, all it does is print "hello, world!" to the console and then exit.
+Сперва, изучим файл который будет скомпилирован: **hello_world.c**. Это простейший тест в SDK, как вы можете видеть он всего лишь печатает "hello, world!" в консоль.
 
 .. include:: ../../../../tests/hello_world.c
    :literal:
 
 
-To build the JavaScript version of this code, simply specify the C/C++ file after *emcc* (use *em++* to force compilation as C++): ::
+Что бы собрать JavaScript версию этого кода, просто укажите C/C++ файл после команды *emcc* (используйте *em++* что бы принудить компилировать C++): ::
 
   ./emcc tests/hello_world.c
 
 
-You should see two files generated by that command: **a.out.js** and **a.out.wasm**. The second is a WebAssembly file containing the compiled code, and the first is a JavaScript file containing the runtime support to load and execute it. You can run them using :term:`node.js`:
+Должна произойти генерация двух файлов: **a.out.js** и **a.out.wasm**. Второй это WebAssembly файл содержащий скомпилированный код. Первый файл предназначен для загрузки и выполнения WebAssembly кода. Вы можете запустить его  с помощью :term:`node.js`:
 
 ::
 
     node a.out.js
 
-This prints "hello, world!" to the console, as expected.
+В консоле должно отобразится "hello, world!", как и ожидалось.
 
-.. note:: Older node.js versions do not have WebAssembly support yet. In that case you will see an error message suggesting that you build with ``-s WASM=0`` to disable WebAssembly, and then emscripten will emit the compiled code as JavaScript. In general, WebAssembly is recommended as it has widespread browser support and is more efficient both to execute and to download (and therefore emscripten emits it by default), but sometimes you may need your code to run in an environment where it is not yet present and so should disable it.
+.. note:: Более старые версии node.js не имеют поддержки WebAssembly. В этом случае вы увидите подсказку рекомендующую выполнить сборку с флагом ``-s WASM=`` что бы выключить поддержку WebAssembly. В этом случае emscripten будет генерировать JavaScript код. Обычно, WebAssemlby лучший выбор, он имеет общирную поддержку браузеров, гораздо произовдительнее и генерирует файлы меньшего размера (поэтому emscripten использует его по умолчанию), но иногда может потребоваться запустить ваш код в окуржении не поддержвающем WebAssembly.
 
-.. tip:: If an error occurs when calling *emcc*, run it with the ``-v`` option to print out a lot of useful debug information.
+.. tip:: Если возникает ошибка в момент вызова *emcc*, запустите его с флагом ``-v`` для вывода более подробной информации.
 
-.. note:: In this section, and later on, we run some files from the ``tests/`` folder. That folder contains files for the Emscripten test suite. Some can be run standalone, but others must be run through the test harness itself, see :ref:`emscripten-test-suite` for more information.
+.. note:: В этом разделе и далее, мы используем некоторые файлы из директории ``test/``. Этот каталог содержит файлы из тестового набора Emscripten. Некоторые могут быть использованы самостоятельно, другие с использованием утилиты тестирования, см. :ref:`emscripten-test-suite` для подробной информации. 
 
 
 
-Generating HTML
-===============
+Генерация HTML
+==============
 
-Emscripten can also generate HTML for testing embedded JavaScript. To generate HTML, use the ``-o`` (:ref:`output <emcc-o-target>`) command and specify an html file as the target file: ::
+Emscripten так же может генерировать HTML для тестирования. Для генерации HTML, используйте флаг ``-o`` (:ref:`output <emcc-o-target>`) и укажите имя целевого файла: ::
 
     ./emcc tests/hello_world.c -o hello.html
 
-You can now open ``hello.html`` in a web browser.
+Теперь вы можете открыть ``hello.html`` в браузере.
 
-.. note:: Unfortunately several browsers (including *Chrome*, *Safari*, and *Internet Explorer*) do not support ``file://`` :term:`XHR` requests, and can't load extra files needed by the HTML (like a ``.wasm`` file, or packaged file data as mentioned lower down). For these browsers you'll need to serve the files using a webserver. The easiest way to do this is to use the python **SimpleHTTPServer** (in the current directory do ``python -m SimpleHTTPServer 8080`` and then open ``http://localhost:8080/hello.html``).
+.. note:: К сожалению некоторые барузеры (включая *Chrome*, *Safari*, и *Internet Explorer*) не поддерживает ``file://`` в :term:`XHR` запросах, и не могут загрузить дополнительные файлы необходимые для HTML (например, ``.wasm`` или упакованные данные, как объясняется ниже). Для таких барузеров Вам потребуется запустить веб сервер для отдачи этих файлов. Простейший способ использовать **SimpleHTTPServer** (в текущей директории выполните ``python -m SimpleHTTPServer 8080`` и откройте ``http://localhost:8080/hello.html``).
 
-Once you have the HTML loaded in your browser, you'll see a text area for displaying the output of the ``printf()`` calls in the native code.
+Когда HTML будет загружен в браузер, вы увидите текстовое поле отображающее вызов ``printf()`` из нативного кода.
 
-The HTML output isn't limited just to just displaying text. You can also use the SDL API to show a colored cube in a ``<canvas>`` element (on browsers that support it). For an example, build the `hello_world_sdl.cpp <https://github.com/emscripten-core/emscripten/blob/master/tests/hello_world_sdl.cpp>`_ test code and then refresh the browser: ::
+HTML вывод не ограничен выводом только текста. Вы можете использовать SDL API для отображения разноцветного куба внутри ``<canvas>`` элемента (в браузерах которые поддерживают его). Соберите `hello_world_sdl.cpp <https://github.com/emscripten-core/emscripten/blob/master/tests/hello_world_sdl.cpp>`_ тест и обновите браузер: ::
 
     ./emcc tests/hello_world_sdl.cpp -o hello.html
 
-The source code for the second example is given below:
+Исходный код второго примера приведен ниже:
 
 .. include:: ../../../../tests/hello_world_sdl.cpp
    :literal:

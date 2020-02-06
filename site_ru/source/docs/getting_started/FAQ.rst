@@ -1,35 +1,35 @@
 .. _FAQ:
 
-===
-FAQ
-===
+========================
+Часто задаваемые вопросы
+========================
 
-This FAQ contains answers to many questions asked on IRC and the mailing list.
+Этот раздел содержит ответы на часто задаваемые вопросы из IRC и почтовой рассылки.
 
-How do I compile code?
-======================
+Как скомпилировать код? 
+=======================
 
-See the :ref:`Emscripten Tutorial <Tutorial>` and :ref:`emcc <emccdoc>`.
+Смотри раздел :ref:`Обучение <Tutorial>` и :ref:`emcc <emccdoc>`.
 
 
-Why do I get multiple errors building basic code and the tests?
+Почему при сборке кода и тестов происходит много ошибок?
 ===============================================================
 
-All the tests in the :ref:`Emscripten test suite <emscripten-test-suite>` are known to build and pass on our test infrastructure, so if you see failures locally it is likely that there is some problem with your environment. (Rarely, there may be temporary breakage, but never on a tagged release version.)
+Все тесты в :ref:`Emscripten test suite <emscripten-test-suite>` успешно собираются и проходят на нашей тестовой инфраструктуре, поэтому в вашем случае возникают ошибке, то скорее всего что-то не так с вашим окружением.
 
-First call ``emcc -v``, which runs basic sanity checks and prints out useful environment information. If that doesn't help, follow the instructions in :ref:`verifying-the-emscripten-environment`.
+В первую очередь вызовите ``emcc -v``, будут выполнены базовые проверки и напечатана полезная информация об окружении. Если это не поможет, то следуйте инструкциям :ref:`verifying-the-emscripten-environment`.
 
-You might also want to go through the :ref:`Tutorial` again, as it is updated as Emscripten changes.
+Кроме того, попробуйте следовать инструкциям из раздела :ref:`Tutorial`, он обновляется при каждом изменение Emscripten.
 
 
-I tried something: why doesn’t it work?
-=======================================
+Я попробовал но у меня не получилось.
+=====================================
 
-Some general steps that might help figure things out:
+Несколько советов которые могут помочь:
 
- * See if the problem happens without optimizations (`-O0`, or not specifying any optimization level). Without optimizations, emscripten enables many assertions at compile and runtime, which may catch a problem and display an error message with a suggestion for how to fix it.
- * Search the documentation on this site.
- * Check if there is a test for the failing functionality in the :ref:`Emscripten test suite <emscripten-test-suite>` (run ``grep -r`` in **tests/**). They should all pass (with only rare exceptions), so they provide concrete "known-good" examples of how various options and code are used.
+ * Проверьте возникает ли проблема без оптимизаций (`-O0`, или без указания уровня оптимизации). Без оптимизаций, emscripten включает множество дополнительных проверок во время компиляции и во время выполнения, которые могут обнаружить проблему и сообщить об ошибке, а так же предложить способ решения проблемы.
+ * Поищите проблему в документации (на этом сайте).
+ * Проверьте выполняются ли все :ref:`тесты <emscripten-test-suite>` (запустите ``grep -r`` в **tests/**). Они все должны завершится успешно (с редкими исключениями), они являются отличными примерами как использовать разные флаги компилятора.
 
 
 Do I need to change my build system to use Emscripten?
